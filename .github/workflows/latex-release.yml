@@ -1,0 +1,41 @@
+name: Build & Release PDF (TeX Live 2025)
+
+on:
+  push:
+    tags:
+      - '*'            # löst bei jedem Tag aus (z.B. v1.0.0)
+
+permissions:
+  contents: write      # nötig, um Release/Assets zu erstellen
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # TeX-Build in Docker mit TeX Live 2025
+      - name: Compile LaTeX (TeX Live 2025)
+        id: latex
+        uses: xu-cheng/latex-action@v4
+        with:
+          # <-- HIER ggf. deinen Root-TEX-Dateinamen anpassen:
+          root_file: climatereport.tex
+          texlive_version: 2025
+          # Optional: XeLaTeX/LuaLaTeX einschalten:
+          # latexmk_use_xelatex: true
+          # latexmk_use_lualatex: true
+          # Schönerer PDF-Name mit Tag:
+          args: "-pdf -file-line-error -halt-on-error -interaction=nonstopmode -jobname=climatereport-${{ github.ref_name }}"
+
+      - name: Create GitHub Release & upload PDF
+        if: github.ref_type == 'tag'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+          files: |
+            climatereport-${{ github.ref_name }}.pdf
