@@ -70,6 +70,14 @@
 % Abschnittsüberschriften in VERSALIEN
 \addtokomafont{section}{\MakeUppercase}
 
+\IfFileExists{gitversion.tex}{\input{gitversion.tex}}{\def\gitversion{local-build}}
+\usepackage{tikzpagenodes} % für sauberes Positionieren
+\AddToHook{shipout/foreground}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=south, yshift=8mm] at (current page.south) {Version \gitversion};
+  \end{tikzpicture}%
+}
+
 \begin{document}
 
 % --- Deckblatt ---
@@ -215,7 +223,7 @@ Die heutige Umgebungsluft im Freien enthält etwa 430 Teile pro Million (ppm) CO
 Die wachsende Menge an CO$_2$ in der Atmosphäre beeinflusst das Erdsystem direkt, indem sie das Pflanzenwachstum fördert (globale Ergrünung), dadurch landwirtschaftliche Erträge steigert und die Alkalinität der Ozeane neutralisiert. Aber die primäre Sorge bezüglich CO$_2$ ist seine Rolle als Treibhausgas (GHG), das die Energiebilanz der Erde verändert und den Planeten erwärmt. Wie das Klima auf diesen Einfluss reagieren wird, ist eine komplexe Frage, die einen Großteil dieses Berichts beschäftigen wird.
 
 \vfill
-Literaturverzeichnis:
+{\textbf Literaturverzeichnis:}
 
 Allen, J., Macnaughton, P., Satish, U., et al. (2015). Associations of cognitive function scores with carbon dioxide, ventilation, and volatile organic compound exposures in office workers: A controlled exposure study of green and conventional office environments. Environmental Health Perspectives. 124. https://doi.org/10.1289/ehp.1510037
 
@@ -343,7 +351,7 @@ Die überwiegende Mehrheit der Studien mit großen Effektgrößen in diesem Bere
 Zusammenfassend ist Meeresleben komplex, und vieles davon entwickelte sich, als die Ozeane relativ zur Gegenwart sauer waren. Die Vorfahren moderner Korallen erschienen vor etwa 245 Millionen Jahren. CO$_2$-Konzentrationen waren für mehr als 200 Millionen Jahre danach viele Male höher als heute. Ein Großteil der öffentlichen Diskussion über die Auswirkungen der Ozean-"Versauerung" auf Meeresbiota war einseitig und übertrieben.
 
 \vfill
-Literaturverzeichnis:
+{\textbf Literaturverzeichnis:}
 
 AR6: Intergovernmental Panel on Climate Change Sixth Assessment Report (2021) Working Group I Contribution. www.ipcc.ch.
 
@@ -561,7 +569,8 @@ Die Herausforderung bei der Messung von UHI-Verzerrung besteht darin, lokale Tem
 
 Zusammenfassend, während es eindeutig Erwärmung in der Landaufzeichnung gibt, gibt es auch Beweise dafür, dass sie durch Urbanisierungsmuster nach oben verzerrt ist und dass diese Verzerrungen nicht vollständig durch die Datenverarbeitungsalgorithmen entfernt wurden, die zur Erstellung von Klimadatensätzen verwendet werden.
 
-Literaturverzeichnis:
+\vfill
+{\textbf Literaturverzeichnis:}
 
 Angert, A., S. Biraud, Bonfils, C., Buermann, W. and I. Fung (2004). CO2 seasonality indicates origins of
 post-Pinatubo sink. Geophysical Research Letters 31. \url{https://doi.org/10.1029/2004GL019760}
@@ -684,6 +693,7 @@ Geophysics 35 pp. 897—912 https://link.springer.com/article/10.1007/s10712-014
 
 \cleardoublepage
 \chapter*{TEIL II: KLIMAREAKTION AUF CO$_2$-EMISSIONEN}
+\numberwithin{figure}{chapter}
 \addcontentsline{toc}{chapter}{TEIL II: KLIMAREAKTION AUF CO$_2$-EMISSIONEN}
 \cleardoublepage
 \chapter{Klimasensitivität bezüglich CO$_2$-Einwirkung}
@@ -692,6 +702,161 @@ Geophysics 35 pp. 897—912 https://link.springer.com/article/10.1007/s10712-014
 Es gibt eine wachsende Erkenntnis, dass Klimamodelle nicht für den Zweck geeignet sind, die Gleichgewichts-Klimasensitivität (ECS) des Klimas gegenüber steigendem CO$_2$ zu bestimmen. Das IPCC hat sich datengetriebenen Ansätzen zugewandt, einschließlich historischer Daten und paläoklimatischer Rekonstruktionen, aber deren Zuverlässigkeit ist durch Datenmängel beeinträchtigt.
 Datengetriebene ECS-Schätzungen tendieren dazu, niedriger zu sein als klimamodell-generierte Werte. Die obere Grenze des IPCC AR6 für den wahrscheinlichen ECS-Bereich beträgt \SI{4.0}{\celsius}, niedriger als der AR5-Wert von \SI{4.5}{\celsius}. Diese Senkung der oberen Grenze scheint durch paläoklimatische Daten gut begründet zu sein. Die untere Grenze des AR6 für den wahrscheinlichen ECS-Bereich beträgt \SI{2.5}{\celsius}, wesentlich höher als der AR5-Wert von \SI{1.5}{\celsius}. Diese Erhöhung der unteren Grenze ist weniger gerechtfertigt; Belege seit AR6 zeigen, dass die untere Grenze des wahrscheinlichen Bereichs bei etwa \SI{1.8}{\celsius} liegt.
 \end{quote}
+\section{Einführung}
+Das Ausmaß der Klimareaktion auf steigende CO$_2$-Konzentrationen steht im Zentrum der wissenschaftlichen Debatte über den anthropogenen Klimawandel und damit auch der öffentlichen Debatte über \emph{Klimaschutzmaßnahmen}. Das einfachste Maß für diese Reaktion ist der Anstieg der globalen durchschnittlichen Oberflächentemperatur, quantifiziert durch die Gleichgewichts-Klimasensitivität (ECS). ECS ist definiert als das Ausmaß der Erwärmung, das als Reaktion auf eine Verdoppelung von CO$_2$ von seiner vorindustriellen Konzentration von \SI{280}{ppm} erwartet wird, nachdem alle Klimakomponenten Zeit hatten, sich anzupassen. Einige Komponenten, wie die Temperaturen in der unteren Atmosphäre (Troposphäre), passen sich schnell an, während andere wie der tiefe Ozean und die Kryosphäre möglicherweise jahrhundertelang brauchen. Ein verwandtes Maß, die Transiente Klimareaktion (TCR), beschreibt die kürzeren Zeitskalen besser; sie ist definiert als das Ausmaß der Erwärmung, wenn die CO$_2$-Konzentration durch einen jährlichen Anstieg von einem Prozent über 70 Jahre verdoppelt wird.
+
+Der Charney-Bericht von 1979 für die U.S. National Academy of Sciences (National Research Council 1979) schlug vor, dass die wahrscheinlichste ECS \SI{3.0}{\celsius} $±$ \SI{1.5}{\celsius} sei. Das IPCC bekräftigte diesen Bereich wiederholt mit nur geringfügigen Variationen bis zu seinem jüngsten AR6. AR5 bezeichnete \SIrange{1.5}{4.5}{\celsius} als den wahrscheinlichen Bereich (66 Prozent Wahrscheinlichkeit) und stellte fest, dass ECS extrem unwahrscheinlich (95 Prozent Wahrscheinlichkeit) unter \SI{1.0}{\celsius} und sehr unwahrscheinlich (90 Prozent Wahrscheinlichkeit) über \SI{6.5}{\celsius} liegt.
+
+Die Unsicherheit in ECS ist hartnäckig weit geblieben, trotz vieler einzelner Studien, die behaupteten, sie zu verringern (Hausfather 2023). Zuletzt verengte AR6 den wahrscheinlichen Bereich auf \SIrange{2.5}{4.0}{\celsius} und betrachtete den sehr wahrscheinlichen Bereich als \SIrange{2.0}{5.0}{\celsius}. Diese Verengung am unteren Ende wird bestritten, wie unten diskutiert wird.
+
+Unsicherheiten in ECS sind höchst folgenreich für die Politikgestaltung. Wie in Kapitel 11 diskutiert wird, verwenden Wirtschaftsmodelle ECS-Werte, um die Kosten von CO$_2$-Emissionen zu projizieren. Der traditionelle Wert (\SI{3.0}{\celsius}) hat typischerweise bescheidene globale soziale Kosten von CO$_2$-Emissionen ergeben, ausreichend um einige politische Maßnahmen zu rechtfertigen, aber meist auf später in diesem Jahrhundert verschoben. Wenn ECS sehr hoch ist (über \SI{4.5}{\celsius}), werden sofortige aggressive Emissionskontrollen zwingender, während keine CO$_2$-Emissionskontrollen wirtschaftlich gerechtfertigt sind für ECS unter \SI{2.0}{\celsius} (Dayaratna et al. 2017, 2020). Eine präzise Schätzung zu erhalten ist unmöglich, daher muss die Politikgestaltung die Unsicherheit berücksichtigen.
+
+Für sich allein ist der Gleichgewichts-Erwärmungseffekt einer Verdoppelung des atmosphärischen CO$_2$ etwas mehr als \SI{1}{\celsius} (Soden und Held 2006). Größere Werte von ECS entstehen durch positive Rückkopplungen, die die CO$_2$-Erwärmung verstärken. Wasserdampf-Rückkopplung ist positiv: eine wärmere Atmosphäre könnte mehr Wasserdampf haben, der selbst ein starkes Treibhausgas ist. Wärmere Temperaturen führen auch zu weniger Schnee- und Meereisbedeckung, wodurch die Erde mehr von der Sonnenstrahlung absorbieren kann. Einige einfache Schätzungen dieser Rückkopplungen erhöhen die ECS auf etwa \SI{2}{\celsius} (Sherwood et al., 2020). Größere Werte von ECS sind mit positiven Wolken-Rückkopplungen verbunden.
+
+Klimawissenschaftler verwenden mehrere Beweislinien, um die Gleichgewichts-Klima\-sensitivität zu bestimmen:
+\begin{itemize}
+\item  Klimamodell-Simulationen
+\item  Historische Beobachtungen  
+\item  Paläoklimatische Rekonstruktionen
+\item  Prozessverständnis von Rückkopplungen
+\end{itemize}
+
+\section{Modellbasierte Schätzungen der Klimasensitivität}
+Die in IPCC AR4 und AR5 angegebenen ECS-Bereiche wurden hauptsächlich durch die Untersuchung des Verhaltens großmaßstäblicher Klimamodelle, auch General Circulation Models (GCMs) genannt, erhalten. Das IPCC änderte jedoch den Kurs in seinem AR6, als es sich einer direkteren datengetriebenen Methodik zuwandte. Hier diskutieren wir einige der Fallstricke bei der Verwendung von GCMs, um die Klimasensitivität der Erde zu bestimmen.
+
+ECS kann aus Klimamodell-Simulationen bestimmt werden, indem die CO$_2$-Konzentration verdoppelt und mehrere Jahrhunderte für die Erwärmung zum Gleichgewicht ermöglicht werden. Um die Notwendigkeit solch langer Simulationen zu vermeiden, wird \emph{effektive Klimasensitivität} üblicherweise aus einer 150-Jahres-Simulation als Reaktion auf eine plötzliche Vervierfachung von CO$_2$ bewertet.
+
+Im Prinzip ist ECS eine emergente Eigenschaft von GCMs –- das heißt, sie wird nicht direkt parametrisiert oder abgestimmt, sondern entsteht vielmehr in den Ergebnissen der Simulation. Anderweitig plausible GCMs und Parameterauswahlen wurden verworfen wegen wahrgenommener Konflikte mit einer erwarteten Erwärmungsrate oder Abneigung gegen eine Klimasensitivität des Modells außerhalb eines akzeptierten Bereichs (Mauritsen et al. 2012). Diese Praxis war für die in AR4 verwendeten Modelle üblich; Modellierer sind mit der Zeit von dieser Praxis abgekommen. Jedoch, selbst in einem CMIP6-Modell, stellen Mauritsen und Roeckner (2020) das Folgende bezüglich ihres Max-Planck-Institut (MPI) Klimamodells fest (Hervorhebung hinzugefügt):
+
+\begin{quote}
+Wir haben dokumentiert, wie wir das globale Klimamodell MPI-ESM1.2 abstimmten, um der instrumentellen Aufzeichnung der Erwärmung zu entsprechen; ein Unterfangen, das eindeutig erfolgreich war. Aufgrund der historischen Reihenfolge der Ereignisse war die Wahl, dies praktisch zu tun, indem eine ECS von etwa 3 K mittels Wolken-Rückkopplungen anvisiert wurde, anstatt die Aerosol-Forcierung abzustimmen.  
+\end{quote}
+
+Mit anderen Worten, die MPI-Modellierer wählten einen ECS-Wert von \SI{3}{\celsius} und stimmten dann die Wolken-Parametrisierungen ab, um ihr beabsichtigtes Ergebnis zu erreichen.
+
+Wie bemerkt, ist die direkte Erwärmung durch CO$_2$-Verdoppelung nur etwa \SI{1}{\celsius} (Soden und Held 2006); weitere Erwärmung entsteht durch Klima-Rückkopplungen, die nicht explizit vom GCM aufgelöst werden, sondern auf Parametrisierungen physikalischer Prozesse angewiesen sind. Höhere Werte von ECS entstehen primär durch positive Wolken-Rückkopplungen, während das Ausmaß und sogar das Vorzeichen der Rückkopplungen sehr unsicher sind. Elemente der Wolken-Rückkopplung umfassen Änderungen in der Breitenverteilung von Wolken, Änderungen in der Verteilung der Wolkenhöhe (Änderungen in niedrigen versus hohen Wolken), Änderungen in der Phase von Wolken (Eis versus Flüssigkeit), Änderungen in der Wolkenpartikelgröße (verbunden mit Änderungen in Konzentration und/oder Zusammensetzung von Aerosolpartikeln), Änderungen in der Niederschlagseffizienz von Wolken, und sogar Änderungen darin, wie Wolken über den täglichen Sonnenzyklus verteilt sind (Curry und Webster, 1999). Es ist für GCMs schwierig, irgendeinen dieser Prozesse aufgrund ihrer kleinen Skala korrekt zu simulieren, geschweige denn vorherzusagen, wie sie sich in der Zukunft ändern werden. Weiterhin modulieren Wolkenprozesse die Größenordnungen der Wasserdampf-, Lapse-Rate- und Oberflächenalbedo-Rückkopplungen.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{bilder/bilderKlima-0017.jpg}\\[1cm]
+\end{center}
+\caption{Gleichgewichtsklimasensitivitäten in °C von 37 Klimamodellen aus dem CMIP6-Ensemble.
+Die Kennungen für die verschiedenen Modelle sind auf der horizontalen Achse angegeben. Aus (Scafetta, 2021)}
+\end{figure}
+
+
+Die Spannweite der ECS-Werte aus dem CMIP5-Ensemble von Klimamodellen, die in AR5 verwendet wurden, war \SIrange{2.0}{4.7}{\celsius}; dieser Bereich vergrößerte sich für die CMIP6-Modelle, die in AR6 verwendet wurden, auf zwischen $1.8$ und \SI{5.7}{\celsius} (Chen et al., 2021, Scaffeta 2021, siehe Abbildung 4.1). Weit davon entfernt, die modellbasierte Klimasensitivität aufzulösen, scheint sich der Bereich zu vergrößern. Die Hauptursache der gesamten Aufwärtsverschiebung in ECS in CMIP6 relativ zu CMIP5 ist eine größere positive Wolken-Rückkopplung, angetrieben durch Änderungen in den Wolken-Parametrisierungen in vielen CMIP6-Modellen (Zelinka et al., 2020).
+
+Aufgrund von Bedenken über Modellabstimmung und die hohe Empfindlichkeit gegenüber Wolken-Parametrisierungen stützte sich AR6 (2021) nicht auf Klimamodell-Simulationen in ihrer Bewertung der Klimasensitivität, sondern verließ sich stattdessen auf datengetriebene Methoden.
+
+\section{Datengetriebene Schätzungen der Klimasensitivität}
+Klimasensitivität kann auch aus instrumentellen Aufzeichnungen von Oberflächentemperaturen und ozeanischem Wärmeinhalt geschätzt werden, kombiniert mit Schätzungen darüber, wie sich Klimaforcierungen (z.B. Treibhausgase, solar, Vulkane, Aerosole) in der Vergangenheit verändert haben (Otto et al., 2013). Mit dieser Information kann ein einfaches empirisches Energiebilanz-Modell eingesetzt werden. Es erfordert die Schätzung eines Rückkopplungsparameters, dessen Unsicherheiten in der resultierenden ECS stark verstärkt werden (Roe und Baker, 2007).
+
+Die Genauigkeit der datengetriebenen Methoden hängt von der Qualität der Eingangsdaten ab. Annahmen sind über ozeanische Wärmespeicherung nötig, und gute Daten sind nur für die letzten Jahrzehnte verfügbar. Die größte Quelle der Unsicherheit ist die Menge und Zusammensetzung von Aerosolpartikeln und ihre Wechselwirkungen mit Wolkenstrahlungseigenschaften (der sogenannte indirekte Aerosoleffekt; siehe Abbildungen 3.1.1, 3.1.2). Klimamodelle zeigen Erwärmung als Reaktion auf THG, aber Abkühlung als Reaktion auf Aerosole (Schwartz et al., 2007). Beobachtete Erwärmung des 20. Jahrhunderts kann gezeigt werden, dass sie konsistent ist entweder mit niedriger ECS und niedriger Aerosol-Abkühlung, oder hoher ECS und hoher Aerosol-Abkühlung. Da die Verwendung fossiler Brennstoffe sowohl THG als auch Aerosole zur Atmosphäre hinzufügt, müssen beide Effekte geschätzt werden, um den Erwärmungseffekt von CO$_2$ zu isolieren.
+
+Paläoklima-Proxies werden auch verwendet, um die Sensitivität vergangener Klimate zu bewerten, indem paläoklimatische Änderungen in den Erdtemperaturen mit Schätzungen von Änderungen in Forcierungen verglichen werden. Die zwei informativsten Perioden sind das letzte glaziale Maximum (vor etwa 20.000 Jahren), das etwa \SIrange{3}{7}{\celsius} kälter war als heute, und eine mittlere Pliozän-Periode (vor etwa drei Millionen Jahren), die \SIrange{1}{3}{\celsius} wärmer war als heute. Die Grenzen der Abkühlung während des letzten glazialen Maximums geben den besten einzelnen Beweis, dass hohe Werte der Klimasensitivität unwahrscheinlich sind. Jedoch sind paläoklimatische Schätzungen mit sehr großen Unsicherheiten in den geschätzten Temperaturen und Forcierungen verbunden. Weiterhin könnten Schätzungen der Klimasensitivität basierend auf vergangenen Klimazuständen nicht auf den aktuellen Zustand des Klimasystems anwendbar sein.
+
+Ein wiederkehrendes Thema in der Klimaliteratur ist, dass ECS-Schätzungen basierend auf historischen Daten kleiner sind als ECS-Schätzungen, die aus Klimamodellen abgeleitet werden (Sherwood und Forest 2024). Etwa 15 Schätzungen basierend auf historischen Daten erschienen in der begutachteten Literatur zwischen 2012 und 2024, die ECS-Bestschätzungen zwischen \SI{1.0}{\celsius} und \SI{2.5}{\celsius} ergaben, obwohl Kritiker einige der Methoden und die Datenqualität in Frage gestellt haben. Für AR6 legte das IPCC primäres Gewicht auf die Ergebnisse von Sherwood et al. (2020), die historische Daten und paläoklimatische Proxies mit dem prozessbasierten Ansatz kombinierten und eine Bestschätzung von \SI{3.1}{\celsius} mit einem wahrscheinlichen Bereich von \SIrange{2.6}{3.9}{\celsius} ergaben. Lewis (2022) äußerte eine Reihe von Bedenken über dieses Ergebnis, einschließlich methodologischer Fehler, veralteter Eingangswerte und der Verwendung subjektiver Bayesscher Priors in der Analyse. Lewis' Analyse fand, dass Klimasensitivität geschätzt wird, viel niedriger und besser eingegrenzt zu sein als in der Sherwood et al. Analyse – Median \SI{2.2}{\celsius} (\SIrange{1.8}{2.7}{\celsius} im $17–83$ Prozent wahrscheinlichen Bereich, und \SIrange{1.6}{3.2}{\celsius} im $5–95$ Prozent sehr wahrscheinlichen Bereich). Das IPCC AR6 schätzte nur eine $5$ Prozent Wahrscheinlichkeit, dass ECS unter \SI{2.3}{\celsius} lag, während Lewis es auf über $50$ Prozent schätzte. Die jüngsten Veröffentlichungen in der Debatte zwischen Sherwood et al. und Lewis verteidigen weiterhin ihre jeweiligen Positionen: Sherwood und Foster (2024) und Lewis (2025).
+
+Ein in AR6 betontes Argument ist, dass datengetriebene ECS-Schätzungen die zukünftige Erwärmungsreaktion auf THG unterschätzen könnten wegen eines sogenannten \emph{Mustereffekts} (Forster et al., 2021). Es wird geglaubt, dass der tropische Pazifik die Gesamteffizienz, mit der die Erde Wärme in den Weltraum abstrahlt, stark beeinflusst, aber einige Regionen entfernen Wärme effizienter als andere. Wenn der West-Ost-Temperaturgradient im tropischen Pazifik in einem sich erwärmenden Klima geschwächt wird, würde sich die Erwärmung dort konzentrieren, wo Wärme weniger effizient entfernt wird, was ECS erhöht.
+
+Die meisten Klimamodelle simulieren, dass steigende THG den West-Ost-Temperatur\-gradienten schwächen werden, was das IPCC in AR6 zu dem Schluss führte, dass datengetriebene ECS-Schätzungen den zukünftigen ECS-Wert unterschätzten. Jedoch wiesen Seager et al. (2019) darauf hin, dass, entgegen den Modellen, sich der West-Ost-Temperaturgradient über die Zeit verstärkt hat. Sie argumentierten weiter, dass der Mechanismus, der anderes in Klimamodellen vorhersagt, auf einer fehlerhaften Charakterisierung ozeanischer Dynamik basierte und es keinen Grund gibt zu erwarten, dass sich der Gradient schwächt. Ein ähnliches Argument wurde kürzlich von Lee et al. (2024) gemacht, die schlossen, dass \emph{die Trajektorie des beobachteten Trends die Reaktion auf zunehmende THG-Belastung in der Atmosphäre widerspiegelt}; mit anderen Worten, THG-Erwärmung sollte zu einer zukünftigen Verstärkung statt einer Schwächung des Temperaturgradienten führen. Erhöhte Effizienz der atmosphärischen Abkühlung impliziert, wenn überhaupt, dass die zukünftige ECS in einem sich erwärmenden Klima niedriger sein könnte als aktuelle Schätzungen.
+
+\section{Transiente Klimareaktion}
+Die Transiente Klimareaktion (TCR) bietet eine nützlichere Beobachtungseinschränkung für die Klimasensitivität. TCR ist der globale Temperaturanstieg, der entsteht, wenn CO$_2$ mit einer jährlichen Rate von 1 Prozent über einen Zeitraum von 70 Jahren erhöht wird (d.h. allmählich verdoppelt). Im Vergleich zur ECS vermeiden beobachtungsbasiert bestimmte Werte von TCR die Probleme von Unsicherheiten in der ozeanischen Wärmeaufnahme und der unscharfen Grenze bei der Definition des Gleichgewichts, die aus einer Reihe von Zeitskalen für die längerfristigen Rückkopplungsprozesse (z.B. Eisschilde) entstehen. TCR ist durch historische Erwärmung besser eingegrenzt als ECS. AR6 beurteilte den sehr wahrscheinlichen Bereich von TCR als \SIrange{1.2}{2.4}{\celsius}. Im Gegensatz zu ECS ist die obere Grenze von TCR enger eingegrenzt. Zum Vergleich: die von Lewis (2023) bestimmten TCR-Werte liegen bei $1.25$ bis \SI{2.0}{\celsius}, was eine viel bessere Übereinstimmung mit AR6-Werten zeigt, als beim Vergleich der ECS-Werte zu sehen war.
+
+\vfill
+{\textbf Literaturverzeichnis:}
+
+Carbon Brief. (2020, July 22). Explainer: How scientists estimate climate sensitivity.
+https://www.carbonbrief.org/explainer-how-scientists-estimate-climate-sensitivity
+
+Carbon Brief. (2020, July 22). Guest post: Why low-end ‘climate sensitivity’ can now be ruled out.
+https://www.carbonbrief.org/guest-post-why-low-end-climate-sensitivity-can-now-be-ruled-out
+
+Carbon Brief. (2021, August 9). In-depth Q\&A: The IPCC’s sixth assessment report on climate science.
+https://www.carbonbrief.org/in-depth-qa-the-ipccs-sixth-assessment-report-on-climate-science
+
+Chen, D., et al. (2021). Framing, context, and methods. In V. Masson-Delmotte et al. (Eds.), Climate
+change 2021: The physical science basis. Contribution of Working Group I to the Sixth Assessment
+Report of the Intergovernmental Panel on Climate Change. Cambridge University Press.
+
+Curry, J. A., \& Webster, P. J. (1999). Thermodynamic feedbacks in the climate system. In
+Thermodynamics of atmospheres and oceans (pp. 351–385). Academic Press.
+
+Dayaratna, Kevin, Ross McKitrick and David Kreutzer (2017) Empirically-Constrained Climate Sensitivity
+and the Social Cost of Carbon. Climate Change Economics April 2017 DOI:
+http://dx.doi.org/10.1142/S2010007817500063
+
+Dayaratna, Kevin, Ross McKitrick and Patrick J. Michaels (2020) Climate Sensitivity, Agricultural
+Productivity and the Social Cost of Carbon in FUND. Environmental Economics and Policy Studies
+https://doi.org/10.1007/s10018-020-00263-w
+
+Forster, P., et al. (2021). The Earth's energy budget, climate feedbacks, and climate sensitivity. In V.
+Masson-Delmotte et al. (Eds.), Climate change 2021: The physical science basis. Contribution of
+Working Group I to the Sixth Assessment Report of the Intergovernmental Panel on Climate Change.
+Cambridge University Press.
+
+Hausfather, Z. (2020, July 22). Explainer: How scientists estimate climate sensitivity. Carbon Brief.
+https://www.carbonbrief.org/explainer-how-scientists-estimate-climate-sensitivity
+
+Lan, X., Tans, P., \& Thoning, K. W. (2025). Trends in globally-averaged CO$_2$ determined from NOAA
+Global Monitoring Laboratory measurements. NOAA Global Monitoring Laboratory.
+https://doi.org/10.15138/9N0H-ZH07
+
+Lee, S., Byrne, M. P., Loikith, P. C., \& O’Dell, C. W. (2024). Zonal contrasts of the tropical Pacific
+climate predicted by a global constraint. Climate Dynamics, 62(1–2), 229–246.
+https://doi.org/10.1007/s00382-023-06741-7
+
+Lewis, N. (2023). Objectively combining climate sensitivity evidence. Climate Dynamics, 61(9–10),
+3155–3163. https://doi.org/10.1007/s00382-022-06398-8
+
+Lewis, N. (2025). Comment on “Can uncertainty in climate sensitivity be narrowed further?” by
+Sherwood and Forest (2024). EGUsphere [preprint]. https://doi.org/10.5194/egusphere-2025-1179
+
+Thorsten Mauritsen et al., (2012) “Tuning the Climate of a Global Model,” Journal of Advances in
+Modeling Earth Systems 4, no. 3 https://doi. org/10.1029/2012ms000154
+29
+
+Mauritsen, T., \& Roeckner, E. (2020). Tuning the MPI-ESM1.2 global climate model to improve the
+match with instrumental record warming by lowering its climate sensitivity. Journal of Advances in
+Modeling Earth Systems, 12, e2019MS002037. https://doi.org/10.1029/2019MS002037
+
+Otto, A., Otto, F. E. L., Boucher, O., Church, J., Hegerl, G., Forster, P. M., Gregory, J. M., \& Johnson, G.
+C. (2013). Energy budget constraints on climate response. Nature Geoscience, 6(6), 415–416.
+https://doi.org/10.1038/ngeo1836
+
+Pachauri, R. K., \& Meyer, L. (Eds.). (2015). Climate change 2014: Synthesis report. Intergovernmental
+Panel on Climate Change.
+
+Roe, G. and M. Baker (2007). Why is climate sensitivity so unpredictable? Science 318, 629-632.
+https://doi.org/10.1126/science.1144735
+
+Scafetta, N. (2021). Testing the CMIP6 GCM simulations versus surface temperature records from 1980–
+1990 to 2011–2021: High ECS is not supported. Climate, 9(11), 161.
+https://doi.org/10.3390/cli9110161
+
+Schwartz, S. E., R. J. Charlson, H. Rodhe (2007). Quantifying climate change—Too rosy a picture?
+Nature Climate Change 1, 23–24, https://doi.org/10.1038/climate.2007.22
+
+Seager, R., Cane, M., Ting, M., Naik, N., Clement, A., DiNezio, P., \& Lee, D. E. (2019). Strengthening
+tropical Pacific zonal sea surface temperature gradient consistent with rising greenhouse gases.
+Nature Climate Change, 9(7), 517–522. https://doi.org/10.1038/s41558-019-0505-x
+
+Sherwood, S. C., \& Forest, C. E. (2024). Opinion: Can uncertainty in climate sensitivity be narrowed
+further? Atmospheric Chemistry and Physics, 24(5), 2679–2686. https://doi.org/10.5194/acp-24-2679-
+2024
+
+Sherwood, S. C., Bony, S., Boucher, O., Bretherton, C. S., Forster, P. M., Gregory, J. M., \& Stevens, B.
+(2020). An assessment of Earth's climate sensitivity using multiple lines of evidence. Reviews of
+Geophysics, 58(4). https://doi.org/10.1029/2019rg000678
+
+Soden, B. J., and I.M. Held (2006). An assessment of climate feedbacks in coupled ocean–atmosphere
+models. Journal of Climate, 19(14), 3354–3360. https://doi.org/10.1175/jcli3799.1
+
+Zelinka, M. D., Myers, T. A., McCoy, D. T., Po-Chedley, S., Caldwell, P. M., Ceppi, P., Klein, S. A., \&
+Taylor, K. E. (2020). Causes of higher climate sensitivity in CMIP6 models. Geophysical Research
+Letters, 47, e2019GL085782. https://doi.org/10.1029/2019GL085782
 % --- Literatur ---
 % \begin{thebibliography}{9}
 % \bibitem{key} Autor. \emph{Titel}. Verlag/Journal, Jahr.

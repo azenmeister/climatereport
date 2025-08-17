@@ -32,6 +32,18 @@ jobs:
           echo "base_name=${BASENAME}" >> "$GITHUB_OUTPUT"
           echo "pdf_path=${BASENAME}.pdf" >> "$GITHUB_OUTPUT"
 
+      # Schreibe aktuelle Version in TeX-Datei
+      - name: Write git tag/branch into TeX macro
+        run: |
+          if [ "${GITHUB_REF_TYPE}" = "tag" ]; then
+            echo "\\def\\gitversion{${GITHUB_REF_NAME}}" > gitversion.tex
+          else
+            SHORTSHA="${GITHUB_SHA::7}"
+            echo "\\def\\gitversion{${GITHUB_REF_NAME}-test-${SHORTSHA}}" > gitversion.tex
+          fi
+          echo "Created gitversion.tex:"
+          cat gitversion.tex
+
       - name: Compile LaTeX (TeX Live 2025)
         uses: xu-cheng/latex-action@v4
         with:
