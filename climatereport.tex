@@ -10,6 +10,19 @@
 \usepackage{newtxtext} % Textfont (Times-like, TeX Live)
 \usepackage{newtxmath} % passende Matheschrift
 \usepackage[final]{microtype}
+\usepackage{caption}% stellt \captionsetup bereit
+
+\usepackage{chngcntr}
+
+% Schalter für die Abbildungsnummerierung
+\newcommand{\FigureNumbersByChapter}{%
+  \counterwithout{figure}{section}% alte Section-Kopplung lösen
+  \counterwithin{figure}{chapter}% an Kapitel koppeln (reset auf 0)
+}
+\newcommand{\FigureNumbersBySection}{%
+  \counterwithout{figure}{chapter}% alte Chapter-Kopplung lösen
+  \counterwithin{figure}{section}% an Sektion koppeln (reset auf 0)
+}
 
 % --- Absatzlayout: Einzug, kein zusätzlicher Abstand ---
 \setlength{\parindent}{1.5em}
@@ -31,14 +44,42 @@
 \usepackage{subcaption}
 \setcapindent{0pt}
 
+\usepackage[most]{tcolorbox}
+\usepackage{graphicx}
+\usepackage{caption} % für \captionof
+
 % --- Bequeme Referenzen (optional) ---
 \usepackage[nameinlink,noabbrev]{cleveref}
 
 \usepackage{siunitx}
 \DeclareSIUnit{\ppm}{ppm}
 
+\usepackage[most]{tcolorbox}
+\usepackage{graphicx}
+\usepackage{caption} % für \captionof
+
+\usepackage{caption} % wichtig
+
+\newtcolorbox{fullbox}[1]{%
+  enhanced,
+  breakable,
+  colback=black!2,
+  colframe=black,
+  boxrule=0.4pt,
+  left=6mm,right=6mm,top=4mm,bottom=4mm,
+  title={\bfseries\Large #1},
+  fonttitle=\bfseries\Large,
+  coltitle=black,
+  attach boxed title to top left={},
+  boxed title style={colback=black!2,boxrule=0pt,left=0pt,right=0pt,top=0pt,bottom=2mm},
+  before lower=\vfill,
+  middle=0pt,
+  segmentation style={draw=none} % <— trennt ohne Linie (auch bei page breaks)
+}
+
 \usepackage{amsmath}
-\numberwithin{figure}{chapter}
+%\numberwithin{figure}{chapter}
+\FigureNumbersByChapter
 
 \makeatletter
 \renewcommand*{\tableofcontents}{%
@@ -405,7 +446,8 @@ Zhang, Y., Liu, Y., Chen, X., et al. (2024). Less than 4% of dryland areas are p
 
 Zhu, Z., Piao, S., Myneni, R. B., et al. (2016). Greening of the Earth and its drivers. Nature Climate Change, 6, 791–795. https://www.nature.com/articles/nclimate3004
 
-\numberwithin{figure}{section}
+%\numberwithin{figure}{section}
+\FigureNumbersBySection
 \chapter{Menschliche Einflüsse auf das Klima}
 \paragraph{Kapitelzusammenfassung}
 \begin{quote}
@@ -693,7 +735,8 @@ Geophysics 35 pp. 897—912 https://link.springer.com/article/10.1007/s10712-014
 
 \cleardoublepage
 \chapter*{TEIL II: KLIMAREAKTION AUF CO$_2$-EMISSIONEN}
-\numberwithin{figure}{chapter}
+%\numberwithin{figure}{chapter}
+\FigureNumbersByChapter
 \addcontentsline{toc}{chapter}{TEIL II: KLIMAREAKTION AUF CO$_2$-EMISSIONEN}
 \cleardoublepage
 \chapter{Klimasensitivität bezüglich CO$_2$-Einwirkung}
@@ -857,6 +900,106 @@ models. Journal of Climate, 19(14), 3354–3360. https://doi.org/10.1175/jcli379
 Zelinka, M. D., Myers, T. A., McCoy, D. T., Po-Chedley, S., Caldwell, P. M., Ceppi, P., Klein, S. A., \&
 Taylor, K. E. (2020). Causes of higher climate sensitivity in CMIP6 models. Geophysical Research
 Letters, 47, e2019GL085782. https://doi.org/10.1029/2019GL085782
+
+\cleardoublepage
+%\numberwithin{figure}{chapter}
+\chapter{DISKREPANZEN ZWISCHEN MODELLEN UND INSTRUMENTELLEN BEOBACHTUNGEN}
+\paragraph{Kapitelzusammenfassung}
+\begin{quote}
+Klimamodelle zeigen Erwärmungsverzerrungen in vielen Aspekten ihrer Reproduktion der vergangenen mehreren Jahrzehnte. Als Reaktion auf geschätzte Änderungen in der Forcierung produzieren sie zu viel Erwärmung an der Oberfläche (außer in den Modellen mit niedrigster ECS), zu viel Erwärmung in der unteren und mittleren Troposphäre und zu viel Verstärkung der Erwärmung in der Höhe.
+Klimamodelle produzieren auch zu viel jüngste stratosphärische Abkühlung, ungültige hemisphärische Albedos, zu viel Schneeverlust und zu viel Erwärmung im Corn Belt. Das IPCC hat einige dieser Probleme anerkannt, aber nicht alle.
+\end{quote}
+
+\section{Einleitung}
+Klimamodelle sind das primäre Werkzeug, das verwendet wird, um zukünftige Klimaänderungen als Reaktion auf steigende atmosphärische Konzentrationen anthropogener Treibhausgase zu projizieren. Um die Eignung von Klimamodellen für diesen Zweck zu bewerten, ist es vernünftig zu fragen, wie gut sie das aktuelle Klima und seine Variationen über das vergangene Jahrhundert reproduzieren. Der Kasten "Klimamodellierung" gibt einige Details darüber, wie Klimamodelle funktionieren.
+Von großer Sorge ist die Tatsache, dass nach mehreren Jahrzehnten des Klimamodellierungsunternehmens mit etwa drei Dutzend Modellen, die von Forschungszentren auf der ganzen Welt betrieben werden, sich der Bereich zukünftiger Erwärmung, den sie als Reaktion auf eine hypothetische Verdoppelung des atmosphärischen CO$_2$ produzieren, über einen Faktor von drei erstreckt, wie wir im vorherigen Kapitel diskutiert haben. Dieser Bereich der Meinungsverschiedenheit zwischen Modellen hat seit Jahrzehnten nicht abgenommen.
+Probleme mit Klimamodellen liegen nicht nur in ihrer Meinungsverschiedenheit über die Zukunft, sondern auch in ihrer Fähigkeit, die jüngste Vergangenheit zu replizieren. Hier überprüfen wir einige der wichtigsten Metriken der Klimamodell-Genauigkeit: Fähigkeit, historische Oberflächen-, troposphärische und stratosphärische Temperaturtrends zu reproduzieren; Fähigkeit, das vertikale Erwärmungsprofil zu reproduzieren; und Fähigkeit, andere Klimamerkmale wie Schneefall zu reproduzieren. In allen Fällen ist ein persistenter Befund, dass Modelle im Durchschnitt auf der Seite von zu viel Erwärmung als Reaktion auf geschätzte historische Forcierungen irren.
+
+
+\begin{fullbox}{BOX: Klimamodellierung}
+% --- Oberer (fließender) Teil: darf über mehrere Seiten laufen ---
+Alle bis auf die einfachsten Klimamodelle repräsentieren die Erdoberfläche mit einem Gitter von Quadraten mit etwa 100 km Breite. Um die Atmosphäre zu simulieren, werden typischerweise 30 oder mehr Gitterboxen über diese Quadrate gestapelt. Der Ozean wird mit einem ähnlichen, aber feineren Gitter modelliert, was zu zehn Millionen von Gitterboxen für die Atmosphäre und Ozeane führt.
+
+Die Computermodelle, basierend auf physikalischen Gesetzen, berechnen, wie sich Luft, Wasser und Energie zwischen Gitterboxen über die Zeit bewegen. Der Zeitschritt kann so klein wie 10 Minuten sein, und die Wiederholung dieses Prozesses Millionen von Malen ermöglicht die Simulation von Klima über Jahrhunderte. Das Ausführen dieser Modelle, selbst auf den leistungsstärksten Supercomputern, kann Monate dauern. Der Vergleich von Simulationsergebnissen mit historischen Klimadaten hilft, die Genauigkeit eines Modells zu bewerten, während Projektionen in die Zukunft Klimaänderungen unter angenommenen menschlichen und natürlichen Einflüssen schätzen.
+
+Trotz der scheinbaren Einfachheit ist Klimamodellierung höchst komplex. Viele kritische Prozesse treten auf Skalen statt, die kleiner sind als die Gittergröße. Zum Beispiel hängen die Flüsse von Sonnenlicht und Wärme in der Atmosphäre stark von der Wolkenbedeckung ab. Da das Verfolgen einzelner Wolken unpraktisch ist, müssen Forscher "Subgitter"-Annahmen über die Verteilung von Wolken in jeder Gitterbox machen. Schnee- und Eisbedeckung, die beeinflusst, wie viel Sonnenlicht von der Oberfläche reflektiert oder absorbiert wird, ist ein weiterer Subgitter-Faktor.
+
+Jede Subgitter-Annahme erfordert numerische Parameter, die sorgfältig gesetzt werden müssen. Modellierer schätzen diese Parameter zunächst basierend auf Physik und beobachteten Klimamustern, dann führen sie das Modell aus. Weil frühe Ergebnisse oft erheblich von realen Beobachtungen abweichen, \emph{stimmen} sie diese Parameter ab, um beobachtete Klimamerkmale besser zu entsprechen. Verschiedene Modellierungsteams verwenden unterschiedliche Annahmen und Abstimmungsstrategien, was zu verschiedenen Ergebnissen führt. Abstimmung ist ein notwendiger, aber delikater Aspekt der Klimamodellierung, wie bei jedem komplexen System. Schlechte Abstimmung kann zu ungenauen Simulationen führen, während übermäßige Abstimmung das Risiko birgt, Ergebnisse künstlich zu vorbestimmten Schlussfolgerungen zu lenken.
+
+Die Spannweite der Modellrepräsentationen des aktuellen Klimas ist sehr weit. Einer der grundlegendsten Indikatoren – die durchschnittliche Oberflächentemperatur der Erde – variiert um etwa \SI{3}{\celsius} über CMIP6-Modelle vor 1880 (Abbildung 5.1), verengt sich leicht bis 2040 und divergiert dann auf über \SI{4}{\celsius}. Zum Vergleich: die Erwärmung des 20. Jahrhunderts betrug nur etwa \SI{1.0}{\celsius}. Diese Variation deutet auf erhebliche Unterschiede zwischen den physikalischen Prozessen der Modelle hin.
+
+% --- Unterer Teil: wird ans Boxende (letzte Seite) gesetzt ---
+\tcblower
+\begin{minipage}{\linewidth}
+  \centering
+  \includegraphics[width=.9\textwidth]{bilder/bilderKlima-0024.png}
+  \captionof{figure}{CMIP6 Durchschnittliche Oberflächentemperaturspanne über 33 Modelle und Standardabweichung unter Verwendung des SSP5-85-Szenarios. Daten: KNMI Climate Explorer (\url{https://climexp.knmi.nl/start.cgi}).}
+\end{minipage}
+
+Jenseits der Fähigkeit der Modelle, Merkmale des heutigen Klimas zu reproduzieren, ist die kritische Frage für die Gesellschaft, wie gut sie Reaktionen auf subtile menschliche Einflüsse vorhersagen, wie Treibhausgasemissionen, Aerosol-Abkühlung und Landnutzungsänderungen. Der wichtigste Aspekt, den Modelle korrekt erfassen müssen, sind "Rückkopplungen". Diese treten auf, wenn Klimaänderungen entweder weitere Erwärmung verstärken oder unterdrücken. Im Allgemeinen verdoppelt oder verdreifacht der modellierte Nettoeffekt aller Rückkopplungen die direkte Erwärmungswirkung von CO$_2$.
+\end{fullbox}
+
+\section{Oberflächenerwärmung}
+Ein einfacher Test der Gültigkeit eines Klimamodells ist seine Fähigkeit, historische Erwärmung als Reaktion auf bekannte vergangene Änderungen in Klimaantrieben wie Treibhausgasen zu reproduzieren. Abbildung 5.2 ist aus Scaffeta (2023) reproduziert, die die neueste Generation (CMIP6) von Klimamodellen in niedrige ECS ($1.5$ bis \SI{3.0}{\celsius}), mittlere ECS ($3.0$ bis \SI{4.5}{\celsius}) und hohe ECS ($4.5$ bis \SI{6.0}{\celsius}) gruppiert und ihre Post-1980 globalen Durchschnittstemperatur-Simulationsbereiche mit denen von drei Oberflächentemperaturaufzeichnungen und einem satelliten-basierten unteren Troposphärentemperatur-Datenprodukt vergleicht.
+Die linke Spalte zeigt, dass die niedrig-ECS-Modelle die Post-1980 historische Erwärmungsaufzeichnung vernünftig gut verfolgen, aber die mittleren und rechten Spalten zeigen, dass die mittleren und hohen ECS-Modelle die Erwärmung auffällig über-vorhersagen.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{bilder/bilderKlima-0026.jpg}\\[1cm]
+\end{center}
+\caption{Modell-Beobachtungs-Vergleiche für die Erwärmung der Erdoberfläche. Die Spalten entsprechen
+Modellgruppen mit niedrigem ECS (13 Modelle), mittlerem ECS (11 Modelle) und hohem ECS (14 Modelle),
+während die Zeilen den weit verbreiteten beobachteten Temperaturaufzeichnungen entsprechen, wobei die ersten drei
+Oberflächendurchschnitte und die vierte den Durchschnitt der unteren Troposphäre zeigen. In jedem Feld bezeichnet der gelbe
+Bereich den Mittelwert und die Spannweite (± eine Standardabweichung) der Klimamodellsimulationen für diese
+Gruppe. Die dicke schwarze Linie zeigt die beobachtete jährliche Durchschnittstemperatur in der angegebenen Aufzeichnung.
+Quelle: Scafetta (2023) Abb. 2.}
+\end{figure}
+
+Spencer (2024) hat auch eine nützliche Zusammenfassung der Modell-Beobachtungs-Diskrepanz bereitgestellt, indem er Trends in Oberflächentemperatur-Datenprodukten mit denen in einzelnen Klimamodellen verglich, wie in Abbildung 5.3 zusammengefasst; die meisten Klimamodelle zeigen erheblich mehr Erwärmung als die Beobachtungen seit 1979.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{bilder/bilderKlima-0027.png}\\[1cm]
+\end{center}
+\caption{Globale Trends der Oberflächenlufttemperatur (°C/Jahrzehnt), 1979–2024, aus verschiedenen CMIP6-Klimamodellen
+(rot, Durchschnitt von 30 Modellen in orange); und der Durchschnitt von drei Thermometer-Datensätzen
+(HadCRUT5, NOAA Global Temp und Berkeley 1 deg.) und zwei Reanalyse-Datensätzen (ERA5 und
+NCEP/NCAR R1) in blau. Datenquelle: https://climexp.knmi.nl/start.cgi.}
+\end{figure}
+
+\section{Troposphärische Erwärmung}
+Es ist seit langem bekannt, dass Klimamodelle im Durchschnitt die Erwärmung in der tropischen Troposphäre übertreiben. Diese Region ist ein wichtiger Test für Klimamodelle, da hier das Signal anthropogener Treibhauserwärmung zuerst und am stärksten auftritt. Verzerrungen in troposphärischen Trends zeigen Modellfehler in Wärmeübertragungsprozessen an, die sich auf Oberflächenerwärmungsverzerrungen übertragen.
+
+Die Diskrepanz wurde als ernste Inkonsistenz im ersten U.S. Climate Change Science Program-Bericht (Karl et al. 2006) markiert und wurde in jedem IPCC-Bericht seitdem erwähnt, aber die Diskrepanz hat sich mit der Zeit verschlechtert, und die Verzerrung ist nun global. McKitrick und Christy (2020) verglichen troposphärische Erwärmungstrends in CMIP6-Klimamodellen mit beobachteten Trends von Satelliten, Wetterballons und Reanalysesystemen. Jedes Modell überschätzte den durchschnittlichen beobachteten Erwärmungstrend über 1979-2014 sowohl in unteren als auch mittleren Troposphärenschichten, sowohl global als auch in den Tropen. In den meisten einzelnen Modellen war die Verzerrung statistisch signifikant und im Durchschnitt über alle Modelle war sie hoch signifikant.
+
+Abbildung 5.4 präsentiert die Vergleiche mit auf 2024 aktualisierten Daten (McKitrick und Christy 2025). Die jüngsten warmen Jahre bewegten den beobachteten Trend leicht nach oben und erweiterten die Trend-Konfidenzintervalle, aber das Gesamtmuster bleibt das gleiche: Modellverzerrung tendiert zu zu viel Erwärmung, in den meisten Fällen ist der Unterschied statistisch signifikant und im Durchschnitt ist die Verzerrung statistisch hoch signifikant. McKitrick und Christy (2020) zeigten auch, dass die Verzerrung in Modellen mit hoher ECS größer ist, aber selbst die Modelle mit niedrigerer durchschnittlicher ECS sagen zu viel Erwärmung vorher. Wenn zukünftige Klimamodelle globale troposphärische Erwärmung realistisch repräsentieren würden, wären sie wahrscheinlich weniger sensitiv als selbst die niedrig-ECS-Mitglieder des CMIP6-Ensembles.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{bilder/bilderKlima-0028.png}\\[1cm]
+\end{center}
+\caption{Beobachtete gegenüber CMIP6-modellierten Erwärmungstrends (°C/Jahrzehnt 1979–2024) in der globalen
+und tropischen unteren (LT) und mittleren Troposphäre (MT) unter Verwendung der Methodik von McKitrick und Christy
+(2020) auf der Grundlage von Daten, die von 2014 bis 2024 aktualisiert wurden. Blaue Punkte: Erwärmungstrends mit 95-prozentigen Konfidenzintervallen
+für 3 Datenprodukte (Radiosonden, Reanalyse und Satelliten). Blaue gestrichelte Linie: Durchschnittlicher Erwärmungstrend
+für 3 beobachtete Reihen. Rote Punkte: Modellierte Erwärmungstrends mit 95-prozentigen Konfidenzintervallen
+in 35 Modellen, angeordnet vom niedrigsten zum höchsten Wert.}
+\end{figure}
+
+
+Wie zuvor erwähnt, hat das IPCC die Modell-Beobachtungs-Diskrepanz lange anerkannt. Zum Beispiel bietet AR6 S. 443-444 dies zur tropischen Troposphäre (es behandelt nicht den globalen Vergleich):
+
+
+\begin{quote}
+Mehrere Studien seit AR5 haben weiterhin eine Inkonsistenz zwischen simulierten und beobachteten Temperaturtrends in der tropischen Troposphäre demonstriert, wobei Modelle mehr Erwärmung simulieren als Beobachtungen (Mitchell et al., 2013, 2020; Santer et al., 2017a, b; McKitrick und Christy, 2018; Po-Chedley et al., 2021)... Über den Zeitraum 1979–2014 sind Modelle konsistenter mit Beobachtungen in der unteren Troposphäre und am wenigsten konsistent in der oberen Troposphäre um 200 hPa, wo Verzerrungen \SI{0.1}{\celsius} pro Jahrzehnt überschreiten.
+Mehrere Studien mit CMIP6-Modellen legen nahe, dass Unterschiede in der Klimasensitivität ein wichtiger Faktor sein könnten, der zur Diskrepanz zwischen simulierten und beobachteten troposphärischen Temperaturtrends beiträgt (McKitrick und Christy, 2020; Po-Chedley et al., 2021), obwohl es schwierig ist, den Einfluss von Klimasensitivität, Änderungen in Aerosolforcing und interner Variabilität bei der Beitragung zu troposphärischen Erwärmungsverzerrungen zu entschlüsseln (Po-Chedley et al., 2021). Eine andere Studie fand, dass das Fehlen einer hypothetischen negativen tropischen Wolkenrückkopplung die Hälfte der oberen Troposphären-Erwärmungsverzerrung in einem Modell erklären könnte (Mauritsen und Stevens, 2015).
+
+... Zusammenfassend finden Studien weiterhin, dass CMIP5- und CMIP6-Modell\-simulationen mehr erwärmen als Beobachtungen in der tropischen mittleren und oberen Troposphäre über den Zeitraum 1979–2014 (Mitchell et al., 2013, 2020; Santer et al., 2017a, b; Suárez-Gutiérrez et al., 2017; McKitrick und Christy, 2018), und dass überschätzte Oberflächenerwärmung teilweise verantwortlich ist (Mitchell et al., 2013; Po-Chedley et al., 2021). ... Daher bewerten wir mit mittlerem Vertrauen, dass CMIP5- und CMIP6-Modelle weiterhin beobachtete Erwärmung in der oberen tropischen Troposphäre über den Zeitraum 1979–2014 um mindestens \SI{0.1}{\celsius} pro Jahrzehnt überschätzen.
+\end{quote}
+
+Bemerkenswert ist, dass trotz der Anhäufung von Belegen für überschüssige Modellerwärmung das IPCC nur mittleres Vertrauen in die Existenz einer Erwärmungsverzerrung zuordnet.
+
 % --- Literatur ---
 % \begin{thebibliography}{9}
 % \bibitem{key} Autor. \emph{Titel}. Verlag/Journal, Jahr.
