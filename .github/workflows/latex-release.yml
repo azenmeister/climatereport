@@ -1,12 +1,14 @@
-name: Build & Release PDF (TeX Live 2025)
+name: Build PDF (push) + Release (tag)
 
 on:
   push:
+    branches:
+      - '**'   # jeder Branch
     tags:
-      - '*'            # löst bei jedem Tag aus (z.B. v1.0.0)
+      - '*'    # jeder Tag
 
 permissions:
-  contents: write      # nötig, um Release/Assets zu erstellen
+  contents: write
 
 jobs:
   build:
@@ -14,21 +16,44 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      # TeX-Build in Docker mit TeX Live 2025
+      # Dateinamen je nach Event-Typ festlegen
+      - name: Compute names
+        id: meta
+        run: |
+          if [ "${GITHUB_REF_TYPE}" = "tag" ]; then
+            BASENAME="climatereport-${GITHUB_REF_NAME}"
+          else
+            SHORTSHA="${GITHUB_SHA::7}"
+            BASENAME="climatereport-test-${GITHUB_REF_NAME}-${SHORTSHA}"
+          fi
+          echo "base_name=${BASENAME}" >> "$GITHUB_OUTPUT"
+          echo "pdf_path=${BASENAME}.pdf" >> "$GITHUB_OUTPUT"
+
       - name: Compile LaTeX (TeX Live 2025)
-        id: latex
         uses: xu-cheng/latex-action@v4
         with:
-          # <-- HIER ggf. deinen Root-TEX-Dateinamen anpassen:
-          root_file: climatereport.tex
+          root_file: climatereport.tex     # ggf. anpassen
           texlive_version: 2025
-          # Optional: XeLaTeX/LuaLaTeX einschalten:
-          # latexmk_use_xelatex: true
-          # latexmk_use_lualatex: true
-          # Schönerer PDF-Name mit Tag:
-          args: "-pdf -file-line-error -halt-on-error -interaction=nonstopmode -jobname=climatereport-${{ github.ref_name }}"
+          args: >
+            -pdf
+            -file-line-error
+            -halt-on-error
+            -interaction=nonstopmode
+            -jobname=${{ steps.meta.outputs.base_name }}
 
+      # Immer Artefakt hochladen (praktisch zum Testen)
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.meta.outputs.base_name }}
+          path: ${{ steps.meta.outputs.pdf_path }}
+          if-no-files-found: error
+          retention-days: 7
+
+      # Nur bei Tags: Release erstellen/aktualisieren und PDF anhängen
       - name: Create GitHub Release & upload PDF
         if: github.ref_type == 'tag'
         uses: softprops/action-gh-release@v2
@@ -38,4 +63,4 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            climatereport-${{ github.ref_name }}.pdf
+            ${{ steps.meta.outputs.pdf_path }}
