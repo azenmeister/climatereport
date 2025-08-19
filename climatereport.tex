@@ -12,6 +12,8 @@
 \usepackage[final]{microtype}
 \usepackage{caption}% stellt \captionsetup bereit
 
+\usepackage{makecell}
+\usepackage{array}
 \usepackage{chngcntr}
 
 % Schalter für die Abbildungsnummerierung
@@ -58,7 +60,9 @@
 \usepackage{graphicx}
 \usepackage{caption} % für \captionof
 
-\usepackage{caption} % wichtig
+\usepackage{booktabs}
+\usepackage{siunitx}
+\sisetup{group-digits=false} % optional, keine Tausenderpunkte
 
 \newtcolorbox{fullbox}[1]{%
   enhanced,
@@ -1264,8 +1268,256 @@ In den Auszügen sind \emph{Kursivschrift} im Original, während \textbf{Fettdru
 
 Zusätzlich verwenden wir standardmäßige Regierungsquellen, um Informationen bis 2024 zu liefern, wo immer möglich.
 
-\section{Hurrikane und tropische Wirbelstürme}
+\section{Hurrikans und Tropische Wirbelstürme}
+AR6 liefert die folgende Bewertung tropischer Wirbelstürme (TCs; hier als Synonym für Hurrikans verwendet):
+\begin{quote}
+AR6: Es besteht geringes Vertrauen in die meisten berichteten langfristigen (multidekadischen bis säkularen) Trends bei der Häufigkeit oder intensitätsbasierten Metriken tropischer Wirbelstürme aufgrund von Änderungen in der Technologie, die zur Sammlung der Best-Track-Daten verwendet wird. (IPCC, 2021 S. 1585)
+
+AR6: Es ist wahrscheinlich, dass der globale Anteil schwerer Tropenwirbelstürme (Kategorie 3–5) in den letzten vier Jahrzehnten zugenommen hat... Es besteht geringes Vertrauen in langfristige (multidekadische bis säkulare) Trends bei der Häufigkeit aller Kategorien von Tropenwirbelstürmen. (IPCC, 2023 SPM S. 9)
+
+AR6: Eine Teilmenge der Best-Track-Daten, die Hurrikans entspricht, die die Vereinigten Staaten seit 1900 direkt beeinflusst haben, wird als zuverlässig betrachtet und zeigt \textbf{keinen Trend in der Häufigkeit von US-Landfallereignissen}. (IPCC 2021 S. 1585)
+\end{quote}
+
+Seit 1980, als Satellitenbeobachtungen erstmals die globalen Ozeane vollständig abdeckten, haben wir Vertrauen in die Zahlen der gesamten globalen Hurrikans und schweren Hurrikans (Kategorie 3 und höher). Abbildung 6.2.1 zeigt, dass es im Durchschnitt etwa 50 Hurrikans pro Jahr gibt, von denen etwa 25 den Status schwerer Hurrikans erreichen (Maue, 2025). Es gibt erhebliche Jahr-zu-Jahr- und dekadische Variabilität, eine schwache Abnahme der Anzahl von Hurrikans und einen leichten, aber nicht signifikanten Anstieg der Anzahl schwerer Hurrikans. Diese beiden Trends kombinieren sich zu einem allgemeinen Anstieg des Anteils schwerer Hurrikans.
+
+Die globalen Hurrikan-Statistiken werden vom Nordwestpazifik dominiert, der etwa 35 Prozent aller globalen Hurrikans ausmacht, während der Atlantik etwa 15 Prozent der globalen Hurrikans ausmacht (Colorado State University, 2025). Die Daten im Atlantikbecken reichen weiter zurück als in den anderen Ozeanbecken und sind für US-Politiker am relevantesten.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{bilder/bilderKlima-0037.jpg}\\[1cm]
+\end{center}
+\caption{Globale Häufigkeit von Hurrikans und schweren Hurrikans seit 1980. Quelle: Aktualisiert von Maue 2011.}
+\end{figure}
+
+Abbildung 6.2.2 zeigt die Häufigkeit atlantischer Hurrikans und schwerer Hurrikans (Kategorie 3 und höher) zurück bis 1920. Daten vor 1965 (dem Beginn der Satellitenbeobachtungen im Atlantik, blau schattiert) zeigen eine gewisse Unterzählung, wobei Daten vor 1920 erhebliche Unterzählung zeigen (Vecchi und Knutson, 2011). Alle Messgrößen atlantischer Hurrikan-Aktivität zeigen einen signifikanten Anstieg seit 1970. Jedoch sah der Zeitraum von 1971-1994 außergewöhnlich niedrige Aktivität, wobei hohe Aktivität (vergleichbar mit den letzten zwei Jahrzehnten, sogar bei Unterzählung) auch in den 1950er und 1960er Jahren und sogar in den 1930er Jahren beobachtet wurde.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{bilder/bilderKlima-0038.png}\\[1cm]
+\end{center}
+\caption{Atlantische Häufigkeit von Hurrikans (HR) und schweren Hurrikans (MHR) seit 1920. Quelle: National Hurricane Center (2024)}
+\end{figure}
+
+Abbildung 6.2.2 zeigt, dass atlantische Hurrikans stark auf dekadischen und multidekadischen Zeitskalen variieren. Diese Variationen sind primär mit der Atlantischen Multidekadischen Oszillation (AMO) verbunden, die sich in beckenweiten Meeresoberflächentemperatur- und Meeresspiegel-Druckschwankungen manifestiert, die mit großräumigen Ozeanzirkulationsmustern verbunden sind. Die AMO befand sich während 1926-1970 und 1995-heute in ihrer warmen Phase, aber während 1971-1994 in ihrer kühlen Phase. Sie hat ihre größte Auswirkung auf die Anzahl schwerer Hurrikans (Kategorie 3+), die Goldenberg et al. (2001) mit übernormalen SSTs und verringerter vertikaler Scherung in der AMO-Warmphase in Verbindung brachten (siehe auch Bell und Chelliah, 2006; Klotzbach et al., 2018).
+
+Klotzbach et al. (2018) führten eine umfassende Bewertung der auf Land treffenden Hurrikan-Daten für die kontinentalen USA seit 1900 durch. Abbildung 6.2.3 aktualisiert ihre Analyse bis 2024. Während die größten Zahlen landtreffender Hurrikans aus 2004, 2005 und 2020 stammen, gibt es keinen statistisch signifikanten Trend seit 1920. Abbildung 6.2.3 zeigt auch die Zeitreihe für schwere Hurrikan-Landtritte (Kategorie 3-5). Das größte Jahr in der Aufzeichnung ist 2005 mit 4 schweren Hurrikan-Landtritten. Jedoch gab es nach 2005 bis 2016 keine schweren Hurrikans, die die USA trafen - der längste solche Zeitraum seit 1920.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{bilder/bilderKlima-0040.png}\\[1cm]
+\end{center}
+\caption{US-Landtritt-Häufigkeit von Hurrikans (HR) und schweren Hurrikans (MHR) seit 1920. Quelle: NOAA HRD(a) (2024)}
+\end{figure}
+
+Abbildung 6.2.3 zeigt erhebliche zwischenjährliche bis multidekadische Variabilität in der US-Landtritt-Aktivität. Klotzbach et al. (2018) untersuchten, wie die Landtritt-Zahlen mit ENSO (El Niño versus La Niña) und den warmen versus kalten Phasen der Atlantischen Multidekadischen Oszillation (AMO) variieren.
+
+Villarini et al. (2012) liefern eine Analyse der US-Hurrikan-Landtritte zurück bis 1878. Während es möglich ist, dass einige Landtritte im späten 19. Jahrhundert aufgrund dünn besiedelter Regionen an der Golfküste übersehen wurden, ist es bemerkenswert, dass das höchste Jahr in der gesamten Aufzeichnung 1886 ist, mit 7 Hurrikan-Landtritten, als menschliche Einflüsse auf das Klima viel geringer waren als heute.
+
+Tabelle 6.2.1 zeigt die 10 stärksten Hurrikans (plus Gleichstände), die US-Landtritte machten. Von den Hurrikans, die mit anhaltenden Winden größer als 150 mph Landtritte machten, ist nur einer im 21. Jahrhundert aufgetreten.
+
+Tabelle 6.2.1: Stärkste Hurrikans, die an der US-Küste Landtritte machten. Quelle: (NOAA HRD(b), 2024)
+
+
+\begin{table}[htbp]
+  \centering
+  
+  \label{tab:hurricans}
+  \begin{tabular}{
+      S[table-format=3.0]
+      S[table-format=2.2]
+      S[table-format=2.3]
+      l
+  }
+    %\toprule
+    {Rang} & {Jahr} & {Landtritt-Wind (MPH)} & {Name} \\
+    \midrule
+    1  &  1935 & 185 & \glqq Labor Day\grqq{} \\
+    2  &  1969 & 175 & Camille \\
+    3  &  1992 & 165 &  Andrew\\\
+    4  &  2018 & 160 &  Michael \\
+    5  &  1856 & 150 & \glqq Last Island\grqq{} \\
+    5  &  1886 & 150 & \glqq Indianola\grqq{} \\
+    5  &  1919 & 150 & ----- \\
+    5  &  1932 & 150 & \glqq Freeport\grqq{} \\
+    5  &  2004 & 150 & Charley\\
+    5  &  2020 & 150 & Laura \\
+    5  &  2021 & 150 & Ida \\
+    5  &  2022 & 150 & Ian \\
+    \bottomrule
+  \end{tabular}
+  \caption{Stärkste Hurrikans, die an der US-Küste Landtritte machten. Quelle: (NOAA HRD(b), 2024)}
+\end{table}
+
+Zusammenfassend liefern Analysen sowohl globaler als auch regionaler Variabilität und Trends der Hurrikan-Aktivität die Grundlage für die Erkennung von Veränderungen und das Verständnis ihrer Ursachen. Die relativ kurze historische Aufzeichnung der Hurrikan-Aktivität und die noch kürzere Aufzeichnung aus der Satellitenära reichen nicht aus, um zu bewerten, ob die jüngste Hurrikan-Aktivität ungewöhnlich im Verhältnis zur natürlichen Hintergrundvariabilität ist. Atlantische Hurrikan-Prozesse werden erheblich von natürlichen Modi der Ozeanzirkulationsvariabilität im Atlantik beeinflusst, insbesondere der Atlantischen Multidekadischen Oszillation. Während lange hypothetisiert wurde, dass eine steigende globale Meeresoberflächentemperatur eine Zunahme der Hurrikan-Intensität verursachen würde, wird die Identifikation eines signifikanten Trends in den Hurrikan-Daten durch eine kurze Datenaufzeichnung und erhebliche natürliche Variabilität behindert.
+
+Prozessbasiertes Verständnis deutet auch darauf hin, dass Sturmfluten und Niederschläge von Hurrikans mit wärmeren Temperaturen zunehmen sollten. Jedoch verhindern die relativ kleine Anzahl von Hurrikans mit variierenden Landtritt-Orten und die komplexe Dynamik, die mit jedem Sturm verbunden ist, eine aussagekräftige Erkennung von Veränderungen.
+
 \section{Temperaturextreme}
+Die AR6-Bewertung konzentrierte sich auf den Zeitraum nach 1950 und berichtete über zunehmende Trends bei Hitzewellen-Häufigkeit und -Intensität. Jedoch stellte NCA4 fest, dass die Hitzewellen-Aktivität in den USA in den 1930er Jahren einen Höhepunkt erreichte (Abbildung 6.3.1).
+
+\begin{quote}
+AR6: Es ist praktisch sicher, dass heiße Extreme (einschließlich Hitzewellen) seit den 1950er Jahren häufiger und intensiver geworden sind in den meisten Landregionen, während kalte Extreme (einschließlich Kältewellen) weniger häufig und weniger schwerwiegend geworden sind (SPM, A3.1)
+
+AR6: In Nordamerika gibt es sehr robuste Belege für eine sehr wahrscheinliche Zunahme der Intensität und Häufigkeit heißer Extreme und eine Abnahme der Intensität und Häufigkeit kalter Extreme für den gesamten Kontinent, obwohl es erhebliche räumliche und saisonale Variationen in den Trends gibt. Mindesttemperaturen zeigen eine konsistente Erwärmung über den gesamten Kontinent, während es kontrastierendere Trends bei den jährlichen maximalen Tagestemperaturen in Teilen der USA gibt. (Kapitel 11, S. 1550)
+
+NCA4: Veränderungen bei warmen Extremen sind nuancierter als Veränderungen bei kalten Extremen. Zum Beispiel \textbf{stieg} die wärmste Tagestemperatur des Jahres in einigen Teilen des Westens über das vergangene Jahrhundert, aber es gab \textbf{Abnahmen} in fast allen Orten östlich der Rocky Mountains. Tatsächlich erlebten alle östlichen Regionen eine \textbf{Nettoabnahme}, am deutlichsten im Mittleren Westen (etwa 2,2°F [1,2°C]) und im Südosten (etwa 1,5°F [0,8°C]). (S. 190-191)
+
+NCA4: Seit Mitte der 1960er Jahre gab es nur einen sehr geringen Anstieg der wärmsten Tagestemperatur des Jahres (inmitten großer zwischenjährlicher Variabilität). Hitzewellen (6-Tage-Perioden mit einer Maximaltemperatur über dem 90. Perzentil für 1961–1990) nahmen in der Häufigkeit bis Mitte der 1930er Jahre zu, wurden bis Mitte der 1960er Jahre erheblich seltener und nahmen danach wieder in der Häufigkeit zu. Wie bei warmen Tagestemperaturen \textbf{erreichte die Hitzewellen-Magnitude ein Maximum in den 1930er Jahren. (S. 190-191)}
+\end{quote}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{bilder/bilderKlima-0042.png}\\[1cm]
+\end{center}
+\caption{US-Hitzewellen seit 1900. Quelle: NCA4 Abbildung 6.4}
+\end{figure}
+
+\subsection{Temperaturen in den USA werden weniger extrem}
+
+Tägliche Maximaltemperaturen in der warmen Saison (Tmax, Mai-Sep) und tägliche Minimaltemperaturen in der kalten Saison (Tmin, Dez-Mär) sind verfügbar ab Dezember 1898 (126 Jahre). Der Datensatz besteht aus 1.211 CONUS-Stationen, die als United States Historical Climate Network oder USHCN-Stationen bezeichnet werden (siehe Abbildung 6.3.2; Quinlan et al. 1987, Karl et al. 1990). Diese Stationen wurden von NOAA als diejenigen mit den wenigsten problematischen Problemen mit Lücken, Stationsverlagerungen und Instrumentenänderungen ausgewählt. Wo Lücken noch bestehen, wurden nahegelegene Stationen (verzerrungskorrigiert) zusammengeführt, so dass das mittlere verfügbare Datenvolumen für eine Station 98\% beträgt. Obwohl es sicherlich Fehler im Datensatz gibt, einschließlich ungelöster unechter Erwärmung aufgrund von UHI-Effekten, die besonders Tmin-Aufzeichnungen verzerren, ist dieser Datensatz ausreichend genau für die Bewertung von Trends bei Tmax-Hitzeextremen.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{bilder/bilderKlima-0043.jpg}\\[1cm]
+\end{center}
+\caption{Standorte der USHCN-Temperaturstationen. Quelle: USHCN.}
+\end{figure}
+
+Wir beginnen mit der Frage, ob das Auftreten täglicher Rekord-Hoch- oder Tieftemperaturen sich seit Dezember 1898 verändert hat. Jede warme Saison hat 153 Tage (1. Mai bis 30. Sep) und jede kalte Saison hat 122 Tage (1. Dez bis 31. Mär). Für jede Station und jeden Tag berechneten wir das Jahr, in dem die Rekord-Höchst- (niedrigste) Temperatur auftrat. Mit 126 Jahren Beobachtungen, wenn es keine Temperaturtrends über die Zeit gäbe, wäre die erwartete Anzahl von Rekorden für Tmax 1,21 (=153/126) pro Station pro Jahr und für Tmin 0,96 (=122/126) pro Station pro Jahr.
+
+Abbildung 6.3.3 zeigt die beobachtete Verteilung in der Zeit des Auftretens dieser Extremereignisse. Es gibt ein gemeinsames Merkmal in vielen Metriken der warmsaisonalen Extreme in CONUS - die außergewöhnliche Hitze der 1920er und besonders der 1930er Jahre, mit einem Höhepunkt in 1936. Im Durchschnitt pro Station traten 60 Prozent der Tmax-Rekorde und 59 Prozent der Tmin-Rekorde in der ersten Hälfte des Zeitraums (1899-1961) auf.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{bilder/bilderKlima-0044.png}\\[1cm]
+\end{center}
+\caption{Anzahl täglicher Rekord-Hoch- (rot) und Tieftemperaturen (blau) für warme und kalte Saisons in CONUS. Die Linien repräsentieren den 15-jährigen laufenden, zentrierten Durchschnitt. Quelle: 1.211 USHCN-Stationen, nach Bedarf ergänzt, um mindestens 92 Prozent der Beobachtungen in dem 126-jährigen Zeitraum seit Dezember 1898 zu erreichen. US48: zusammenhängende US-Staaten. Tmax: Maximaltemperatur. Tmin: Minimaltemperatur.}
+\end{figure}
+
+Auf der kalten Seite steht der Valentinstag-Arktisausbruch im Februar 1899 als das umfassendste Kälteextrem, das CONUS erlebte, mit 1917 an zweiter Stelle. Die Häufigkeit von Kälterekorden ist zurückgegangen, besonders im letzten Viertel des Zeitraums, in dem nur 13 Prozent der extremen Kälteereignisse gemessen wurden. Im Gegensatz dazu wurden 25 Prozent der extremen Tmax-Rekorde im letzten Viertel erreicht, in Übereinstimmung mit statistischen Erwartungen. Diese allgemeinen Merkmale wurden in früheren Bewertungen bemerkt (siehe oben, IPCC AR6, NCA4). Die Kombination der beiden Geschichten zeigt, dass die allgemeine Verringerung der Anzahl sowohl kalter als auch heißer Extreme über das vergangene Jahrhundert auf ein Klima hinweist, das weniger zu Extremen neigt.
+
+Dieses Muster wird auch in Abbildung 6.3.4 gezeigt. Für jede Station und für jedes Jahr wurden die heißesten warmsaisonalen und kältesten kaltsaisonalen Temperaturen berechnet. Dann wurden die Unterschiede zwischen diesen nach Station berechnet und geografisch über alle Stationen gemittelt, was ein jährliches Maß für die erwartete Spanne lokaler Extremtemperaturen für jedes Jahr ergibt. Abbildung 6.3.4 zeigt den 15-jährigen nachlaufenden Durchschnitt dieses Maßes, der über das vergangene Jahrhundert deutlich zurückgegangen ist.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{bilder/bilderKlima-0045.png}\\[1cm]
+\end{center}
+\caption{15-jähriger nachlaufender Durchschnitt der Differenz jedes Jahres zwischen der heißesten warmsaisonalen Tmax und kältesten kaltsaisonalen Tmin jeder Station relativ zum langfristigen Durchschnitt. Quelle: Autoranalyse von USHCN-Daten.}
+\end{figure}
+
+Der durchschnittliche Unterschied für jede Station zwischen der heißesten Sommer-Tmax und kältesten Winter-Tmin ist in den letzten 126 Jahren um etwa \SI{5}{\degree\text{F}} zurückgegangen. Der Rückgang ist hauptsächlich auf wärmere Winter-Tmin zurückzuführen, aber auch ein Rückgang der Sommer-Tmax ist ein Faktor. Der Anstieg von Tmin war stark mit der wachsenden Präsenz von hergestellten Oberflächen um die Wetterstationen in den letzten 100+ Jahren verbunden (der sogenannte städtische Wärmeinseleffekt; Abschnitt 3.3, Karl et al. 1988, Runnals und Oke 2006, und Spencer et al. 2025).
+
+Zusammenfassend zeigen langfristige Aufzeichnungen, während Temperaturextreme regelmäßig in den USA erlebt werden und große Medienaufmerksamkeit anziehen, dass das US-Klima über die Zeit weniger extrem (milder) geworden ist, wenn es durch die Spanne zwischen warmsaisonalen Maxima und kaltsaisonalen Minima gemessen wird.
+
+\subsection{Überschreitungen einer Hitzeschwelle}
+Unter der Überschrift \emph{Das Risiko von Temperaturextremen verändert sich} bemerkt der neueste US National Climate Assessment Report (NCA5) den Anstieg einer Schwellenwert-Metrik der Anzahl von Tagen bei oder über \SI{95}{\degree\text{F}} und stellt fest:
+\begin{quote}
+Die westlichen USA wurden seit den 1980er Jahren besonders von extremer Hitze betroffen..., mit einem größeren Anstieg von Tagen über \SI{95}{\degree\text{F}}, wie erwartet angesichts der größeren Erwärmung in dieser Region relativ zu den östlichen USA. Mehrere große Hitzewellen haben die USA seit 2018 betroffen, einschließlich eines rekordverschmetternden Ereignisses im pazifischen Nordwesten in 2021.
+\end{quote}
+
+Verändern sich die Auftreten von \SI{95}{\degree\text{F}}-Tagen? In einem so vielfältigen Klima wie dem von CONUS können Schwellenwert-Statistiken irreführend sein. Eine Region mit vielen Stationen, die nahe \SI{95}{\degree\text{F}} Tmax-Durchschnittstemperaturen im Sommer haben, könnte große Schwankungen in der Metrik sehen, wenn nur kleine Änderungen in der Durchschnittstemperatur auftreten. Anderswo, mit Stationen, die entweder selten oder praktisch immer \SI{95}{\degree\text{F}} Tmax-Temperaturen erreichen, wird eine kleine Änderung nicht viel Auswirkung auf die Ergebnisse haben.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{bilder/bilderKlima-0046.jpg}\\[1cm]
+\end{center}
+\caption{Gesamtanzahl von Tagen $\geq$ \SI{95}{\degree\text{F}} in 6-jährigen Perioden, US 48 (Balken) und Regionen (Linien). Eine 6-Jahres-Periode wird verwendet, da dies die 126-jährige Aufzeichnung gleichmäßig teilt. Ergebnisse sind robust bei Verwendung von Perioden von 2 bis 11 Tagen. US48: zusammenhängende US-Staaten. Siehe Abbildung 6.3.2 für Regionsnamen. Quelle: Autoranalyse von USHCN-Daten.}
+\end{figure}
+
+In den letzten 126 Jahren erlebte die durchschnittliche CONUS-Station 129 Tage, die 95°F pro 6-Jahres-Periode überschritten, aber die regionalen Werte reichen von 278 in den Southern Plains bis 9 im Nordosten. Daher müssen solche Schwellenwert-Analysen mit Vorsicht interpretiert werden. Abbildung 6.3.5 zeigt, dass nur drei der neun Regionen, alle im Westen, aufwärts gerichtete Trends bei der Anzahl von 95°F oder heißeren Tagen erlebt haben (gestrichelte Linien). CONUS als Ganzes hat das nicht, und die anderen sechs Regionen haben Rückgänge erlebt.
+
+Die pazifische Nordwest-Hitzewelle von 2021, die im NCA5-Zitat erwähnt wird, wird in Abschnitt 8.6.1 näher untersucht. Die Evidenz zeigt, dass es ein einzelnes, beispielloses Ereignis in der Aufzeichnung war, nicht Teil eines Musters zunehmender extremer Hitze. Zum Beispiel war die 5-Tage-Durchschnitts-Troposphären-Gitterpunkt-Temperaturanomalie über dem pazifischen Nordwesten während dieses Ereignisses +10,8°C, die extremste Sommer-Anomalie der nördlichen Hemisphäre an Gitterpunkten in den 46 Jahren aus über 4 Millionen Gitterwerten. Im Gegensatz dazu war die globale Temperaturanomalie während dieser Zeit praktisch null (+0,03°C, Mass et al. 2024).
+
+\subsection{Hitzewellen}
+Hitzewellen (aufeinanderfolgende Tage, die eine extreme Schwelle überschreiten) haben eine größere gesellschaftliche Auswirkung als eine einzelne tägliche Rekordtemperatur. Wir messen "Hitzewellen-Tage" hier als die Anzahl aller Tage im Mai-September jedes Jahres, die das 90. Perzentil für diesen Tag überschreiten und die innerhalb einer Periode von mindestens sechs aufeinanderfolgenden Tagen liegen. Dies entspricht der in NCA4 verwendeten Methode, außer dass der Referenzzeitraum hier die gesamte Aufzeichnung 1899-2024 ist, während NCA4 den Referenzzeitraum auf 1961-1990 kürzte, was ein kühles Intervall war. (Das unten gezeigte Ergebnismuster hängt nicht von der Wahl des Referenzzeitraums ab.) Diese Kürzung verstärkt positive Ergebnisse (Tage, die das 90. Perzentil überschreiten) in Jahren, die wärmer als der Referenzzeitraum sind, besonders ab 1960 bis zur Gegenwart (siehe Abbildung 6.3.6 und Diskussion unten).
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{bilder/bilderKlima-0047.png}\\[1cm]
+\end{center}
+\caption{15-jähriger nachlaufender Durchschnitt der Anzahl von Hitzewellen-Tagen pro Jahr pro Station in CONUS (schwarze Linie) und zwei Regionen: Westen (rot), Zentral-Osten (grün).}
+\end{figure}
+
+Abbildung 6.3.6 zeigt, dass es regionale Variationen in der Hitzewellen-Aktivität gibt. Die übermäßige Hitze der ersten Hälfte des 20. Jahrhunderts trat primär in den östlichen zwei Dritteln der Nation auf, während der Westen einen jüngsten Anstieg von Hitzewellen-Tagen gesehen hat (NCA5). Dies zeigt, dass die Hintergrund-Warmsaison-Zirkulation Hitzewellen in den östlichen Teilen des Landes in der ersten Hälfte des 20. Jahrhunderts begünstigte, aber im 21. Jahrhundert haben die Muster Hitzewellen im Westen begünstigt. Für CONUS als Ganzes sind Hitzewellen heute nicht häufiger als vor einem Jahrhundert, konsistent mit dem oberen Panel unserer Abbildung 6.4.1 aus NCA4.
+
+Diese Metrik variiert erheblich mit der Region. Die vier nördlichen Regionen (Pacific NW, Northern Plains, Upper Midwest und Northeast) erleben im Durchschnitt 15 bis 27 Hitzewellen-Tage pro 15-Jahres-Periode. Im Gegensatz dazu sehen die fünf südlichen Regionen (Pacific Southwest, 4-Corners, Southern Plains, Ohio Valley und Southeast) 37 bis 54 solche Tage, im Wesentlichen doppelt so viele. Dies deutet darauf hin, dass das Sommer-Zirkulationsmuster in den südlichen Regionen anfälliger für stationäre Ereignisse ist, während transiente Systeme in den nördlichen Regionen häufiger sind und daher diese potenziell längeren Ereignisse verkürzen.
+
+Die Analyse von Hitzewellen ist ein Beispiel dafür, warum es wichtig ist, vollständige Datensätze und angemessene Metriken zu betrachten. NCA5 leitet Leser zur Website https://www.globalchange.gov/indicators/heat-waves (USGCRP 2023), um eine Abbildung zu sehen, die die Anzahl städtischer Hitzewellen nach Jahrzehnten ab den 1960er Jahren zeigt, die wir als Abbildung 6.3.7 reproduzieren.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{bilder/bilderKlima-0048.png}\\[1cm]
+\end{center}
+\caption{Durchschnittliche Anzahl städtischer Hitzewellen pro Jahr für 50 große US-Metropolregionen, eine irreführende Metrik aus Gründen, die im Text erklärt werden. Von \url{https://www.globalchange.gov/indicators/heat-waves} (aufgerufen am 22. Mai 2025).}
+\end{figure}
+
+Die Abbildung zeigt einen monotonen Anstieg in jedem Jahrzehnt von zwei Auftreten pro Jahr in den 1960er Jahren auf sechs in den 2020er Jahren. Die verwendete Definition einer Hitzewelle ist ein ungewöhnliches, aber praktisches Maß menschlichen Unbehagens - eine Periode von mindestens 2 aufeinanderfolgenden Tagen, wenn die minimale scheinbare Temperatur (Kombination von Temperatur und Feuchtigkeit) das 85. Perzentil überschreitet. Beachten Sie auch, dass der Datensatz auf die 50 größten US-Städte beschränkt ist.
+
+Angesichts der ungewöhnlichen Hitzewellen-Definition und des städtischen Fokus sind diese steigenden Werte seit 1960, die in USGCRP (2023) präsentiert werden, nicht informativ über langfristige Trends oder den Einfluss von THG-Emissionen aus mindestens zwei Gründen. Erstens, wie in Abbildungen 6.3.1 und 6.3.6 gezeigt, waren die 1960er Jahre das kälteste Jahrzehnt und die 1970er Jahre das zweitkälteste Jahrzehnt seit den 1910er Jahren, sodass dieses Startdatum die Zeitreihe darauf vorkonditioniert, Anstiege zu zeigen. Zweitens ist die Urbanisierung nach 1960 in diesen Städten ein Hauptfaktor für den Anstieg von Tmin relativ zu ko-lokalisierten Tmax und relativ zu Tmin an nahegelegenen ländlichen Stationen (Karl et al. 1988, Runnals und Oke 2006, Christy et al. 2009, McNider et al. 2012). Dies schmälert nicht den realen Anstieg der nächtlichen Temperaturen in großen US-Städten und die gesellschaftlichen Auswirkungen, die mit diesen Änderungen verbunden sind. Jedoch bemerken wir aus verschiedenen Gründen, dass Sommer-Tmax (besonders in ländlichen Gebieten) eine bessere Metrik für die Erkennung von Änderungen in Hitzewellen ist, die von Änderungen im Hintergrundklima beeinflusst werden, zum Beispiel aufgrund steigender THGs (Christy et al. 2009). Für CONUS als Ganzes deutet die Evidenz in diesem Abschnitt darauf hin, dass THG-Emissionen wenig bis keine Auswirkung auf Hitzewellen vor dem Hintergrund von Urbanisierung und natürlicher Klimavariabilität hatten. Unabhängig von der ultimativen Ursache regionaler Trends haben Hitzewellen wichtige Auswirkungen auf die Gesellschaft, die angegangen werden müssen, wie wir in Kapitel 10 diskutieren.
+
+\begin{fullbox}{BOX: Gefahren kurzer Datenaufzeichnungen}
+% --- Oberer (fließender) Teil: darf über mehrere Seiten laufen ---
+San Francisco bietet eine gute Fallstudie der Begrenzung der Verwendung kurzer historischer Stichproben zur Charakterisierung natürlicher Variabilität von Extremereignissen. Angenommen, wir verwenden eine 130-jährige Stichprobe täglicher San Francisco-Niederschläge von 1895 bis 2024 und wir suchen nach 3-Tage-, 5-Tage-, 14-Tage- und 30-Tage-Niederschlagsrekorden. Die Ergebnisse sind wie in Tabelle 6.2 gezeigt.
+
+\begin{center} 
+  \begin{tabular}{
+       l
+       S[table-format=2.2]
+       S[table-format=4.0]
+   }
+  \toprule
+  \multicolumn{1}{l}{Ereignis} & 
+  \multicolumn{1}{c}{Rekord (Zoll)} & 
+  \multicolumn{1}{c}{Jahr} \\
+  \midrule
+     3-Tage   &  6.94 & 2023 \\
+     5-Tage   &  8.55 & 2023 \\
+    14-Tage   & 12.62 & 2023 \\
+    30-Tage   & 18.93 & 1998 \\
+  \bottomrule
+  \end{tabular}
+  \captionof{table}{Extreme Niederschlagsrekorde, San Francisco, 1895–2024.}
+  \label{tab:box2table1}
+\end{center}
+
+Die Rekorde gruppieren sich alle in den jüngeren Jahren. 2023 scheint ein außergewöhnliches Jahr zu sein, und da es nahe dem Ende der Stichprobe liegt, könnte es darauf hindeuten, dass das Klima in einen gefährlicheren Zustand gewechselt ist, vielleicht aufgrund menschlicher Einflüsse. [Hinweis: "2023" zeigt an, dass das Ereignis im Wasserjahr von Aug 2022 bis Juli 2023 auftrat.]
+
+Aber das Bild ist sehr anders, wenn wir eine Stichprobe verwenden, die 45 Jahre früher beginnt, in 1850. Tabelle 6.3 zeigt, dass die rekordschaffenden Ereignisse alle in den 1860er Jahren passierten. Außerdem ist 2023 jetzt nicht einmal an zweiter Stelle, sondern fällt auf den 3. oder 4. Platz. Und ein Vergleich der Rekorde der beiden Tabellen zeigt, dass die extremen Niederschlagsereignisse in 1862 und 1867 erheblich mehr Niederschlag beinhalteten als die Ereignisse von 1998 und 2023, mit 14- und 30-Tage-Summen etwa 50 Prozent höher.
+
+\noindent
+\noindent
+\begin{minipage}{\textwidth}
+\begin{center}
+  \begin{tabular}{
+        l
+        S[table-format=2.2]
+        S[table-format=4.0]
+        >{\centering\arraybackslash}p{5.5cm}
+  }
+    \toprule
+    \multicolumn{1}{l}{Ereignis} &
+    \multicolumn{1}{c}{Rekord (Zoll)} &
+    \multicolumn{1}{c}{Jahr} &
+    \makecell{Rang des 130-Jahresextrems\\ aus Tabelle 6.2} \\
+    \midrule
+    3-Tage   &  8.85 & 1867 & 3 \\
+    5-Tage   &  9.80 & 1867 & 3 \\
+    14-Tage  & 19.05 & 1862 & 4 \\
+    30-Tage  & 28.25 & 1862 & 2 \\
+    \bottomrule
+  \end{tabular}
+  \captionof{table}{Extreme Niederschlagsrekorde, San Francisco, 1850–2024.}
+  \label{tab:box2tab2}
+\end{center}
+\end{minipage}
+
+
+% --- Unterer Teil: wird ans Boxende (letzte Seite) gesetzt ---
+Die Spanne natürlicher Variabilität wird noch bemerkenswerter, wenn paläoklimatische Evidenz untersucht wird. Porter et al. (2011) entdeckten, dass in den letzten 1.800 Jahren mindestens sechs Megastürme intensiver waren als der verheerende 1861-62 ARkStorm, der die Region traf.
+
+Dieses Beispiel illustriert die Begrenzungen der Verwendung relativ kurzer Klimazeiträume (~130 Jahre) zur Bewertung des Charakters und der Spanne natürlicher Variabilität im Allgemeinen und von Extremereignissen im Besonderen. Eine genaue Darstellung der vollen Spanne natürlicher Variabilität ist notwendig für jede Attributionsanalyse (Abschnitt 8.6). Infrastrukturplaner, Notfallmanagement-Institutionen und Attributionswissenschaftler würden die erhebliche Falschdarstellung der Magnitude eines zukünftigen Extrems verstehen, wenn sie nur auf den letzten 130 Jahren basiert. In diesem Fall liefert eine einzelne Zeitstichprobe von 130 Jahren eine Unterschätzung des Extremwertes um bis zu 50 Prozent, die bestimmt wird, wenn nur 45 weitere Jahre von Beobachtungen hinzugefügt werden. Verglichen mit paläoklimatischer Evidenz auf Jahrtausend-Skala würde eine noch größere Unterschätzung auftreten. Eine wichtige Lehre ist, dass das Klima große Überraschungen von sich aus liefern kann, sogar ohne menschliche Einflüsse.
+\end{fullbox}
+
 \section{Extreme Niederschläge}
 \section{Tornados}
 \section{Überschwemmung}
@@ -1471,6 +1723,8 @@ Zhang, W., G. Villarini, G.A. Vecchi, and J.A. Smith, J. A. (2018). Urbanization
 and flooding caused by Hurricane Harvey in Houston. Nature, 563, 384–388.
 https://doi.org/10.1038/s41586-018-0676-z
 \endgroup
+
+
 % --- Literatur ---
 % \begin{thebibliography}{9}
 % \bibitem{key} Autor. \emph{Titel}. Verlag/Journal, Jahr.
