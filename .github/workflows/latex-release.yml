@@ -31,7 +31,7 @@ jobs:
           echo "pdf_name=${BASENAME}.pdf" >> "$GITHUB_OUTPUT"
           echo "pdf_path=de_translation/${BASENAME}.pdf" >> "$GITHUB_OUTPUT"
 
-      # gitversion.tex dort erzeugen, wo die .tex-Datei liegt
+      # gitversion.tex erzeugen
       - name: Write git tag/branch into TeX macro
         run: |
           mkdir -p de_translation
@@ -44,30 +44,36 @@ jobs:
           echo "Created de_translation/gitversion.tex:"
           cat de_translation/gitversion.tex
 
-      # LaTeX build im Verzeichnis der Root-Datei ausführen
+      # Debug: Prüfe, ob die .tex-Datei wirklich da ist
+      - name: Debug paths
+        run: |
+          pwd
+          ls -la
+          ls -la de_translation || true
+
+      # LaTeX Build im Unterordner
       - name: Compile LaTeX (TeX Live 2025)
         uses: xu-cheng/latex-action@v4
         with:
-          root_file: de_translation/climatereport.tex
-          work_in_root_file_dir: true     # <- wichtig, damit ../bilder/* gefunden wird
+          working_directory: de_translation
+          root_file: climatereport.tex
           texlive_version: 2025
           args: >
-            -pdf
             -file-line-error
             -halt-on-error
             -interaction=nonstopmode
             -jobname=${{ steps.meta.outputs.base_name }}
 
-      # Artefakt hochladen (liegt in de_translation/)
+      # Artefakt hochladen
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ steps.meta.outputs.base_name }}
-          path: ${{ steps.meta.outputs.pdf_path }}
+          path: de_translation/${{ steps.meta.outputs.base_name }}.pdf
           if-no-files-found: error
           retention-days: 7
 
-      # Nur bei Tags: Release erstellen & PDF anhängen
+      # Bei Tags: Release mit PDF
       - name: Create GitHub Release & upload PDF
         if: github.ref_type == 'tag'
         uses: softprops/action-gh-release@v2
@@ -77,4 +83,4 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            ${{ steps.meta.outputs.pdf_path }}
+            de_translation/${{ steps.meta.outputs.base_name }}.pdf
