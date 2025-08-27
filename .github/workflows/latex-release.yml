@@ -44,14 +44,14 @@ jobs:
           echo "Created de_translation/gitversion.tex:"
           cat de_translation/gitversion.tex
 
-      # Debug: Prüfe, ob die .tex-Datei wirklich da ist
+      # Debug: Pfade prüfen
       - name: Debug paths
         run: |
           pwd
           ls -la
           ls -la de_translation || true
 
-      # LaTeX Build im Unterordner
+      # LaTeX Build im Unterordner (wichtig: -pdf, sonst DVI→PNG-Fehler)
       - name: Compile LaTeX (TeX Live 2025)
         uses: xu-cheng/latex-action@v4
         with:
@@ -59,6 +59,7 @@ jobs:
           root_file: climatereport.tex
           texlive_version: 2025
           args: >
+            -pdf
             -file-line-error
             -halt-on-error
             -interaction=nonstopmode
