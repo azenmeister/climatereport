@@ -2,10 +2,8 @@ name: Build PDF (push) + Release (tag)
 
 on:
   push:
-    branches:
-      - '**'   # jeder Branch
-    tags:
-      - '*'    # jeder Tag
+    branches: ['**']
+    tags: ['*']
 
 permissions:
   contents: write
@@ -30,24 +28,28 @@ jobs:
             BASENAME="climatereport-test-${GITHUB_REF_NAME}-${SHORTSHA}"
           fi
           echo "base_name=${BASENAME}" >> "$GITHUB_OUTPUT"
-          echo "pdf_path=${BASENAME}.pdf" >> "$GITHUB_OUTPUT"
+          echo "pdf_name=${BASENAME}.pdf" >> "$GITHUB_OUTPUT"
+          echo "pdf_path=de_translation/${BASENAME}.pdf" >> "$GITHUB_OUTPUT"
 
-      # Schreibe aktuelle Version in TeX-Datei
+      # gitversion.tex dort erzeugen, wo die .tex-Datei liegt
       - name: Write git tag/branch into TeX macro
         run: |
+          mkdir -p de_translation
           if [ "${GITHUB_REF_TYPE}" = "tag" ]; then
-            echo "\\def\\gitversion{${GITHUB_REF_NAME}}" > gitversion.tex
+            echo "\\def\\gitversion{${GITHUB_REF_NAME}}" > de_translation/gitversion.tex
           else
             SHORTSHA="${GITHUB_SHA::7}"
-            echo "\\def\\gitversion{${GITHUB_REF_NAME}-test-${SHORTSHA}}" > gitversion.tex
+            echo "\\def\\gitversion{${GITHUB_REF_NAME}-test-${SHORTSHA}}" > de_translation/gitversion.tex
           fi
-          echo "Created gitversion.tex:"
-          cat gitversion.tex
+          echo "Created de_translation/gitversion.tex:"
+          cat de_translation/gitversion.tex
 
+      # LaTeX build im Verzeichnis der Root-Datei ausführen
       - name: Compile LaTeX (TeX Live 2025)
         uses: xu-cheng/latex-action@v4
         with:
-          root_file: climatereport.tex     # ggf. anpassen
+          root_file: de_translation/climatereport.tex
+          work_in_root_file_dir: true     # <- wichtig, damit ../bilder/* gefunden wird
           texlive_version: 2025
           args: >
             -pdf
@@ -56,7 +58,7 @@ jobs:
             -interaction=nonstopmode
             -jobname=${{ steps.meta.outputs.base_name }}
 
-      # Immer Artefakt hochladen (praktisch zum Testen)
+      # Artefakt hochladen (liegt in de_translation/)
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
         with:
@@ -65,7 +67,7 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
-      # Nur bei Tags: Release erstellen/aktualisieren und PDF anhängen
+      # Nur bei Tags: Release erstellen & PDF anhängen
       - name: Create GitHub Release & upload PDF
         if: github.ref_type == 'tag'
         uses: softprops/action-gh-release@v2
