@@ -16,6 +16,19 @@
 \usepackage{array}
 \usepackage{chngcntr}
 
+\usepackage{enumitem}
+
+\newlist{glossar}{description}{1}
+\newlength{\glosslabelwidth}
+\setlength{\glosslabelwidth}{4cm} % Deine Zielspalte für Folgezeilen
+\setlist[glossar]{%
+  style=unboxed,               % Label läuft in die erste Zeile hinein
+  font=\bfseries,              % Label fett
+  labelsep=.5em,               % kleiner Abstand nach dem Label
+  before*=\setlength{\hangindent}{\dimexpr\glosslabelwidth+\labelsep\relax}\setlength{\hangafter}{1}%
+}
+
+
 % Schalter für die Abbildungsnummerierung
 \newcommand{\FigureNumbersByChapter}{%
   \counterwithout{figure}{section}% alte Section-Kopplung lösen
@@ -3051,7 +3064,7 @@ Zusammenfassend betrachten Ökonomen Klima als einen relativ unwichtigen Faktor 
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=0.9\textwidth]{bilder/bilderKlima-0084.jpg}\\[1cm]
+\includegraphics[width=0.8\textwidth]{bilder/bilderKlima-0084.jpg}\\[1cm]
 \end{center}
 \caption{Rückgang des US-BIP pro Grad Erwärmung. Quelle: CEA-OMB (2023)}
 \end{figure}
@@ -3059,31 +3072,298 @@ Zusammenfassend betrachten Ökonomen Klima als einen relativ unwichtigen Faktor 
 Die Erwartung, dass signifikante globale Erwärmung eine kleine Auswirkung auf die US-Wirtschaft haben würde, wurde stillschweigend von der Biden-Administration anerkannt, selbst als der Präsident einen Klimanotstand ausrief. Abbildung 11.2, aus einem 2023 CEA-OMB-Bericht, zeigt das erwartete Dekrement im US-BIP als Funktion des Temperaturanstiegs. Die farbigen Linien zeigen die Ergebnisse von einem Dutzend peer-reviewter veröffentlichter Studien, während die durchgezogene schwarze Linie ihr Durchschnitt ist. Die Abbildung könnte zusammengefasst werden als "einige Prozent Auswirkung für einige Grad Erwärmung". Gegeben, dass die jährliche Wachstumsrate der Wirtschaft erwartungsgemäß 1-2 Prozent beträgt, ist die Auswirkung eines sich erwärmenden Globus auf das US-BIP tatsächlich vernachlässigbar.
 
 
-\section{11.2}
-\subsection{11.2.1}
-\subsection{11.2.2}
-\subsection{11.2.3}
-\subsection{11.2.4}
-\subsection{11.2.5}
+\section{Modelle der sozialen Kosten von Kohlenstoff}
+Die sozialen Kosten von Kohlenstoff (SCC) sind ein Instrument zur Quantifizierung der wirtschaftlichen Auswirkungen von Kohlendioxidemissionen und helfen politischen Entscheidungsträgern, die Kosten und Nutzen von Klimapolitiken abzuwägen. Sie schätzen den Schaden, der durch die Emission einer zusätzlichen Tonne CO$_2$ verursacht wird, ausgedrückt in Dollar. Formeller ausgedrückt sind die SCC der diskontierte Gegenwartswert des aktuellen und zukünftigen marginalen Verlusts der wirtschaftlichen Wohlfahrt aufgrund einer zusätzlichen Tonne CO$_2$, die in die Atmosphäre gelangt.
+
+\subsection{Schätzung der SCC}
+Obwohl die Literatur von \emph{Schätzungen} der SCC spricht, werden sie nicht auf die Art geschätzt, wie andere wirtschaftliche Statistiken geschätzt werden. Zum Beispiel können Daten über Markttransaktionen einschließlich Preise und Mengen verwendet werden, um die aktuelle Inflationsrate oder die Wachstumsrate des realen Pro-Kopf-Bruttoinlandsprodukts zu schätzen, und es gibt gut verstandene Ungewissheiten, die mit diesen Größen verbunden sind. Aber es sind keine Marktdaten verfügbar, um viele, wenn nicht die meisten der marginalen Schäden oder Vorteile zu messen, von denen angenommen wird, dass sie mit CO$_2$-Emissionen verbunden sind, sodass diese mit Hilfe von Wirtschaftsmodellen zugerechnet werden müssen.
+
+Zum Beispiel ist eine einflussreiche Komponente einiger SCC-Berechnungen die wahrgenommenen sozialen Kosten, die mit einem veränderten Risiko zukünftiger Sterblichkeit aufgrund extremer Wetterereignisse verbunden sind. Es gibt keinen Markt, in dem Menschen einem solchen Risiko direkt einen Preis zuordnen können. Bestenfalls können Ökonomen versuchen, solche Werte abzuleiten, indem sie Transaktionen in verwandten Märkten wie Immobilien oder Versicherungen betrachten, aber die Isolierung der Komponente von Preisänderungen, die atmosphärischen CO$_2$-Konzentrationen zuzuschreiben sind, ist sehr schwierig.
+
+Ökonomen verwenden IAMs (Integrated Assessment Models), um die SCC zu berechnen. Zwei der bekanntesten sind das Climate Framework for Uncertainty, Negotiation and Distribution (\emph{FUND}, Tol 1997) und Nordhaus' DICE. Die EPA (2023) führte neue für ihre jüngste Arbeit ein. IAMs enthalten eine \emph{Schadensfunktion} oder einen Satz von Funktionen, die die Umgebungstemperatur mit lokalen wirtschaftlichen Bedingungen verknüpfen. Die in der Schadensfunktion eingebetteten Annahmen werden die resultierende SCC weitgehend bestimmen. IAMs nehmen auch einen langfristigen Diskontsatz an oder, wie bei DICE, berechnen den optimalen internen Diskontsatz als Teil der Lösung.
+
+Ein Ansatz zur Entwicklung einer Schadensfunktion besteht darin, mit Schätzungen der Kosten (oder Vorteile) der Erwärmung in spezifischen Sektoren in Ländern auf der ganzen Welt zu beginnen und zu einem globalen Betrag zu aggregieren. Dies war der Ansatz, der in FUND verwendet wurde. Ein alternativer Ansatz besteht darin, eine einfache Gleichung zu entwickeln, die das globale Einkommen gemäß einer einfachen quadratischen Funktion der durchschnittlichen globalen Temperatur bestraft. Dieser Ansatz wurde in DICE verwendet. Im Fall des FUND-Modells mussten viele hundert Parameter ausgewählt werden, während bei DICE nur drei benötigt wurden und ursprünglich gewählt wurden, um eine vorbestimmte Strafe (1.2\%) der globalen Leistung bei \SI{3}{\celsius} Erwärmung zuzuweisen, mit einem quadratischen Term, der impliziert, dass Schäden mit dem Quadrat der globalen durchschnittlichen Temperaturanomalie wachsen. Barrage und Nordhaus (2024) änderten kürzlich die Parameter, um die Strafe bei \SI{3}{\celsius} auf 1.6\% zu erhöhen, und fügten eine diskrete zusätzliche 1.0 Prozent BIP-Strafe bei \SI{3}{\celsius} Erwärmung hinzu, um \emph{Kipppunkte} (diskrete großmaßstäbliche Umweltveränderungen, die durch Überschreitung einer Erwärmungsschwelle ausgelöst werden) zu berücksichtigen, und eine \emph{beurteilende Anpassung} von 0,5 Prozent für ausgeschlossene Auswirkungen bei \SI{3}{\celsius} Erwärmung. Nicht überraschend generiert die neuere Version von DICE viel höhere SCC-Schätzungen als zuvor.
+
+Die Konzepte der Schätzung und Ungewissheit lassen sich nicht ohne weiteres auf SCC-Berechnungen anwenden. Keine Menge der Datensammlung kann die Tatsache ändern, dass viele Komponenten der SCC unbekannt sind und auf Beurteilung und Meinung basierend auf dem Wissen der zugrundeliegenden Literatur über die physikalischen Auswirkungen des Klimawandels beruhen. SCC-Berechnungen werden daher am besten als "Wenn-dann"-Aussagen betrachtet: wenn die folgenden Annahmen gelten, dann ist die SCC \$X pro Tonne. Die Liste der "Wenn"--Aussagen umfasst die Prämisse, dass das Klima und die Wirtschaft der Welt entsprechend der Darstellung im IAM funktionieren. Eine Art, wie dies möglicherweise nicht zutrifft, liegt im Timing der Erwärmung. Jedes IAM nimmt einen Wert der Gleichgewichts--Klimasensitivität (ECS) an, der die Menge der Erwärmung kontrolliert, die aus CO$_2$--Emissionen resultiert, und kann frei variiert werden, um eine Verteilung von SCC--Werten zu generieren, die mit Ungewissheiten über die ECS verbunden sind. Aber wie Roe und Baumann (2013) darauf hinwiesen, steigt die Zeit bis zum Gleichgewicht mit dem Quadrat der ECS, sodass eine Aufwärtsanpassung des ECS--Parameters ohne eine angemessene Verlangsamung des Anpassungsprozesses verzerrte Gegenwartswert--Schadeneschätzungen ergeben kann. Insbesondere ist der obere Schwanz der Erwärmung, der mit einigen häufig verwendeten ECS--Verteilungen verbunden ist, physikalisch unmöglich für sogar tausend Jahre in die Zukunft (Roe und Baumann 2013), würde aber in einem IAM innerhalb weniger Jahrhunderte realisiert werden. Das Versäumnis, ECS mit der Zeit zum Gleichgewicht in Einklang zu bringen, wird zu einer Überschätzung des SCC--Werts führen.
+
+\subsection{Variationen in den SCC}
+Jede Ebene der IAM-Berechnung umfasst Annahmen, von denen einige einflussreicher sind als andere. Die wichtigsten Annahmen umfassen folgende:
+
+\begin{itemize}
+\item Der Diskontsatz: Klimaschäden fallen über einen langen Zeithorizont an, und Kosten ein oder zwei Jahrhunderte in der Zukunft müssen auf die Gegenwart diskontiert werden. Je höher der Diskontsatz, desto kleiner ist der Gegenwartswert zukünftiger Schäden und umgekehrt. Der Diskontsatz repräsentiert die Opportunitätskosten, heute Geld auszugeben, anstatt es zu investieren und dann morgen mehr zum Ausgeben zu haben. Einige Ökonomen haben für die Verwendung sehr niedriger Diskontsätze in SCC-Berechnungen argumentiert, was zu politischen Empfehlungen führt, die relativ große sofortige Investitionen in CO$_2$-Emissionsreduktionen befürworten. Der Nachteil ist, dass andere Investitionen potenziell eine größere Rendite für die Gesellschaft erzielen könnten.
+
+\item Gleichgewichts-Klimasensitivität: IAMs haben üblicherweise einen Wert von \SI{3.0}{\celsius} oder \SI{3.1}{\celsius} entsprechend der IPCC-Leitlinien verwendet. Die neuesten datenbasierten ECS-Werte neigen dazu, niedriger als diese zu sein (siehe Kapitel 4). Dayaratna et al. (2017, 2020, 2023) haben gezeigt, dass die Verwendung niedrigerer empirisch abgeleiteter ECS-Werte die resultierende SCC-Schätzung dramatisch senkt, selbst wenn niedrige Diskontsätze verwendet werden.
+
+\item Schadensfunktionskoeffizienten: IAMs nehmen an, dass CO$_2$ und Erwärmung Nettischäden verursachen, die exponentiell mit der Temperatur zunehmen. Jüngst haben IAMs auch Effekte aus angenommenen potenziellen Klima-Kipppunkten einbezogen. Das FUND-Modell berücksichtigte begrenzt, aber explizit CO$_2$-Düngungseffekte in der Landwirtschaft. Da die Koeffizienten vor der Veröffentlichung der aktuellen Belege für globale Ergrünung und das Ausmaß der Vorteile für Feldfrüchte durch erhöhtes CO$_2$ (siehe Kapitel 2 und 9) ausgewählt wurden, sind die Wachstumseffekte wahrscheinlich unterbewertet. Das DICE-Modell (und andere) schlossen keinen expliziten CO$_2$-Düngungsvorteil ein, außer in dem Umfang, in dem er in der Literatur berücksichtigt wurde, die bei der Auswahl der Schadensfunktionskoeffizienten konsultiert wurde. Die Schadensfunktion in FUND enthält einen Bereich, in dem geringe Erwärmung Nettovorteile in vielen Regionen erbringt, ein Befund, der durch ökonometrische Modelle der Erwärmung und des Wachstums (Berg et al. 2023) und ökonometrische Simulationen landwirtschaftlicher Veränderungen (McKitrick 2025) unterstützt wird. Die DICE-Schadensfunktion schließt konstruktionsbedingt Nettovorteile bei jedem Erwärmungsniveau aus.
+
+\item Emissionsszenarien: IAMs generieren SCC-Schätzungen, die zunehmen, wenn die bereits bestehende CO$_2$-Konzentration steigt. Folglich wird der Wert der Schäden später im Jahrhundert höher sein, abhängig von den angenommenen Baseline-Emissionen in den kommenden Jahrzehnten.
+\end{itemize}
+
+Einige IAMs (wie DICE) schließen die Kosten für die Wirtschaft der Reduktion von CO$_2$-Emissionen ein, um die SCC entlang eines optimalen Wachstumspfads zu identifizieren. Wenn angenommen wird, dass CO$_2$-Emissionsreduktionen kostengünstig sind, dann wird das Modell zu dem Schluss kommen, dass die optimale Politik auf tiefere Emissionskürzungen abzielen sollte und umgekehrt.
+
+Es ist aufschlussreich festzustellen, ob SCC-Ergebnisse invariant gegenüber Änderungen einiger Annahmen sind. Aber wenn verschiedene Annahmen zu höheren oder niedrigeren SCC-Werten führen, liefert die Änderung des SCC-Werts keinen prima facie Beweis für die Gültigkeit der Annahmen. Zum Beispiel erhöhte die U.S. Environmental Protection Agency 2023 ihren bevorzugten SCC-Wert um etwa das 5-fache gegenüber den Schätzungen, die sie zehn Jahre früher ausgegeben hatte. Dies geschah nicht, weil neue Daten gesammelt oder bessere mathematische Methoden erfunden worden waren, sondern weil neue Annahmen verwendet wurden, und die Gültigkeit dieser Annahmen war eine separate Frage. Tabulierungen auf EPA (2023) S. 81 zeigen, dass wenn ähnliche Annahmen wie in früheren Analysen angewendet worden wären, die Ergebnisse sich nicht wesentlich von zuvor unterschieden hätten. Eine neue Annahme war, dass globale landwirtschaftliche Schäden weit höher waren als zuvor angenommen, basierend auf einer Analyse in Moore et al. (2017). Aber wie in Kapitel 9 diskutiert, zeigte McKitrick (2025), dass Moore et al. (2017) eine Datenbank verwendet hatten, in der die Hälfte der CO$_2$-Veränderungsbeobachtungen fehlten. Als so viele dieser Beobachtungen wie möglich aus zugrundeliegenden Quellen wiederhergestellt und die Analyse erneut durchgeführt wurde, verschwanden die projizierten Ernteverluste und verwandelten sich in Gewinne bei allen Erwärmungsniveaus. Daher war der Teil der EPA-SCC-Revision, der auf landwirtschaftliche Ertragsverluste zurückzuführen war, ungerechtfertigt.
+
+\subsection{Belege für niedrige SCC}
+Kapitel 2 überprüfte Belege zu Klimawandel und Ergrünung, und Kapitel 9 betrachtete Klimawandel und U.S.-Landwirtschaft. Belege zeigen, dass CO$_2$-Düngung eine stärkere positive Wirkung auf die Landwirtschaft hat, als zu der Zeit bekannt war, als IAMs wie DICE und FUND parametrisiert wurden. Haverd et al. (2020) fanden, dass die beobachtete CO$_2$-Düngungsrate fast doppelt so hoch war wie von Pflanzenmodellen vorhergesagt.
+Dayaratna et al. (2023) verwendeten die aktualisierte empirische ECS-Verteilungsschätzung von Lewis (2022), die moderne instrumentelle und paläoklimatische Temperaturaufzeichnungen assimiliert, und erlaubten einen 30-prozentigen Gewinn im CO$_2$-Düngungsvorteil im FUND-Modell, und fanden, dass selbst bei einem niedrigen Diskontsatz von 2.5 Prozent die mediane SCC ab 2050 nur 18.67 \$ beträgt, mit einer 24-prozentigen Wahrscheinlichkeit, dass der wahre Wert negativ ist. Bei einem fünfprozentigen Diskontsatz war der mediane SCC-Wert negativ bis Mitte der 2040er Jahre und betrug 2050 nur 0.37 \$ mit einer 49-prozentigen Wahrscheinlichkeit, negativ zu sein. Somit liefert unter vernünftigen Annahmen ein Mainstream-IAM, das aktualisierte wissenschaftliche Eingaben verwendet, Belege, die damit übereinstimmen, dass die SCC nicht signifikant größer als null ist.
+
+Es sollte auch bemerkt werden, dass die SCC sich auf die sozialen Kosten von CO$_2$-Emissionen aus fossiler Brennstoffnutzung konzentriert. Sie ist nicht dazu bestimmt, die privaten marginalen Vorteile für Verbraucher und die Gesellschaft aus der Verfügbarkeit fossiler Brennstoffe zu messen. Die öffentliche Zahlungsbereitschaft für Brennstoffe aller Arten zeigt den Wert für die Gesellschaft von zuverlässiger, reichlicher fossiler Energie. Tol (2017) schätzt, dass der private Vorteil von Kohlenstoff groß ist im Verhältnis zu den sozialen Kosten. Dies kann veranschaulicht werden, indem man bemerkt, dass der Preis einer Gallone Benzin den marginalen Wert für den Verbraucher des Brennstoffs anzeigt. Nehmen wir an, wir nehmen relativ hohe soziale Kosten von Kohlenstoff von, sagen wir, 75 \$ pro Tonne an. Deflationiert durch einen MCPF\footnote{Grenzkosten öffentlicher Mittel(Marginal Cost of Public Funds): Der optimale CO$_2$-Steuersatz ergibt sich aus dem Quotienten von SCC und MCPF (Sandmo 1977).}-Wert von 1.5 würde das zu einer Kohlenstoffsteuer von 50 \$ pro Tonne führen, was etwa 44 Cent pro Gallone Benzin entspricht (Lavelle, 2019). Ein Vorsteuerpreis von 3.00 \$ pro Gallone würde implizieren, dass der marginale soziale Nutzen des Brennstoffs fast siebenmal die marginalen sozialen Kosten beträgt.
+
+\subsection{Kipppunkte}
+SCC-Berechnungen berücksichtigen typischerweise graduelle Auswirkungen eines sich erwärmenden Klimas, wie langsam schmelzende Gletscher und steigende Durchschnittstemperaturen. Ein Treiber potenziell hoher Werte der sozialen Kosten von Kohlenstoff (SCC) ist die Einführung diskreter katastrophaler Ergebnisse, die mit abrupten Veränderungen verbunden sind, in Modelle (Dietz et al., 2021). Sie werden oft als \emph{Kipppunkte} bezeichnet.
+
+Der Begriff \emph{Kipppunkt} vermischt zwei verschiedene physikalische Konzepte, die unterschiedliche Forschungsherausforderungen darstellen. Viele physikalische Systeme sind von Natur aus stabil, es sei denn, sie werden mit ausreichender externer Energie beeinflusst. Zum Beispiel kann eine Eiskappe über einen weiten Temperaturbereich intakt bleiben, aber sobald die Temperatur die \SI{0}{\celsius}-Schwelle überschreitet, schmilzt sie. Solche Diskontinuitäten sind in der Natur allgegenwärtig und erfordern eine externe Kraft. Ob die Kraft groß sein muss im Verhältnis zur Größe des Systems, hängt von der zugrundeliegenden Stabilität des Systems ab.
+
+Ein anderer Typ von Kipppunkt wird Bifurkation genannt und entsteht aus dem Studium der internen Dynamik nichtlinearer Systeme (Crawford, 1991). Es wurde beobachtet, dass viele Systeme mehr als einen Gleichgewichtspunkt haben und zwischen ihnen mit minimalem oder ohne externen Einfluss wechseln können. Zum Beispiel könnte ein Wettersystem zwei verschiedene Gleichgewichtszustände haben: einen ruhigen und einen mit einem Tornado. Ein Übergang von einem zum anderen kann entweder ohne externe Kraft oder mit einer winzigen Veränderung geschehen, wie dem Flügelschlag des sprichwörtlichen Schmetterlings (Shen et al. 2014). Der Begriff "Kipppunkt" wird manchmal verwendet, um eine Bifurkation dieses Typs zu bezeichnen und impliziert eine dem System selbst innewohnende Instabilität, die nicht notwendigerweise von äußeren Kräften abhängt. Sie hängt stattdessen von Parametern des Systems ab, die Werte annehmen, die das Entstehen von Bifurkationen unterstützen (Crawford, 1991).
+
+Die zwei verschiedenen Konzepte implizieren unterschiedliche Forschungsfragen. Bezüglich des ersten interessieren wir uns dafür, ob Komponenten des Klimasystems anfällig für abrupte Diskontinuitäten als Reaktion auf ausreichend große anthropogene Antriebe sind. Bezüglich des zweiten interessieren wir uns dafür, ob das Klimasystem der Erde inhärente Bifurkationen hat, die die Möglichkeit abrupter Übergänge mit oder ohne externe Antriebe implizieren.
+
+Modelle wurden entwickelt, die implizieren, dass der zweite Typ eine Möglichkeit ist. Kypke et al. (2020) präsentierten ein einfaches Klimamodell, in dem die THG-Konzentration einer der Parameter ist, die das Entstehen von Bifurkationen des arktischen Klimas zu einem mit sowohl kalten als auch warmen Gleichgewichten kontrolliert. Wenn ausreichend hoher THG-Antrieb kombiniert mit einer ausreichend hohen Rate des ozeanischen Wärmetransports auferlegt wird, wird eine Bifurkation möglich. Allgemeiner wurde beobachtet, dass GCMs Bifurkationen und multiple Gleichgewichte enthalten (Brunetti und Ragon, 2023).
+
+Die mögliche Existenz von Bifurkationen im Klimasystem der Erde impliziert, dass abrupte Übergänge möglich sind, nicht nur als Reaktion auf große Antriebe, sondern auch auf kleine Störungen. Dies ordnet Kipppunkte in die Kategorie von Ereignissen mit geringer Wahrscheinlichkeit und potenziell katastrophalen Auswirkungen ein, wie große Meteoriteneinschläge. Eine wichtige Frage ist, ob solche Arten von Kipppunkten vorhergesagt werden können. Die aktuelle Forschung hat diese Frage nicht gelöst (Dakos et al., 2024) und könnte dies tatsächlich nicht können, da eine Implikation des \emph{Schmetterlingseffekts} die Existenz von Vorhersagbarkeitsgrenzen nichtlinearer Systeme ist (Palmer et al., 2014). Es ist daher nicht offensichtlich, wie solche Möglichkeiten in SCC-Berechnungen einbezogen werden können. Kleine Variationen in den Annahmen werden zu willkürlich großen Variationen in der resultierenden SCC führen, ohne Grundlage für eine Wahl zwischen ihnen. Wenn solche Kipppunkte möglich sind, ist die angemessenste Haltung für die Wirtschaftspolitik, die Widerstandsfähigkeit gegenüber jeder Form externer Katastrophe zu maximieren, da es unwahrscheinlich ist, dass wir sie vorhersagen oder ihr Auftreten verhindern könnten.
+
+AR6 (WGI, Kapitel 1) konzentriert sich hauptsächlich auf den ersten Typ von Kipppunkt, nämlich eine abrupte Veränderung als Reaktion auf externe Antriebe. Dies ist auch die Bedeutung, die mit der populären Verwendung des \emph{Kipppunkt}-Konzepts in Diskussionen über den Klimawandel verbunden ist (siehe \url{https://report-2023.global-tipping-points.org/what-is-a-tipping-point/} zum Beispiel). Wie von AR6 zusammengefasst, gibt es Belege für abrupte Veränderungen in der Paläoklimaaufzeichnung, und einige dieser Ereignisse wurden als Kipppunkte interpretiert. Einige Projektionen mit Erdsystemmodellen haben zum Beispiel Kipppunkte wie das Absterben des Amazonas-Regenwaldes als Reaktion auf spezifizierte Werte der CO$_2$-Konzentration oder Temperaturanstiege produziert.
+
+Der Alarm um Klima-Kipppunkte spiegelt sich in dem Global Tipping Points Report wider, der am 6. Dezember 2023 bei COP28 vorgestellt wurde (Lenton et al., 2023). Er identifiziert mehr als 25 Teile des Klimasystems, die als Kipppunkte bezeichnet werden. Was als Klima-"Kipppunkt" klassifiziert wird, ist ein bewegliches Ziel. Die häufigsten Beispiele in der Literatur und in Bewertungsberichten umfassen: Zerfall der grönländischen Eisdecke, Zerfall der westantarktischen Eisdecke, sommerliches Verschwinden des arktischen Meereises, Absterben des Amazonas-Regenwaldes, Korallenriff-Absterben, Auftauen von Permafrost und Methanhydraten, Kollaps der atlantischen meridionalen Umwälzzirkulation, Verschiebung borealer Wälder, Verschiebung des westafrikanischen Monsuns und Verschiebung des indischen Monsuns.
+
+Alle solchen Kipppunkte erfordern ein gewisses Maß an Systeminstabilität, um einen abrupten Übergang als Reaktion auf die Erwärmung zu zeigen. Aus diesem Grund scheint es sehr wenig zu geben, um zwischen einem Kippereignis und natürlicher Klimavariabilität zu unterscheiden. Natürliche Klimavariabilität hat in der Vergangenheit Verschiebungen in den west-afrikanischen und indischen Monsunen, Amazonas-Wald- und Korallenriff-Absterben und Zerfall von Teilen der grönländischen und westantarktischen Eisschilde hervorgebracht. Diese Auswirkungen können sich auf den Dekaden- und Jahrhundertzeitskalen umkehren, die mit natürlicher Klimavariabilität und Ökosystemreaktionen verbunden sind.
+
+Einige abrupte Veränderungen sind potenziell folgenreicher, einschließlich des Kollapses der westantarktischen Eisdecke und des Kollapses der atlantischen meridionalen Umwälzzirkulation (AMOC). AR6 WG1 Summary for Policy Makers stellt fest:
+
+\begin{quote}
+Die atlantische meridionale Umwälzzirkulation wird sich sehr wahrscheinlich über das 21. Jahrhundert für alle Emissionsszenarien abschwächen. Während es hohes Vertrauen in den Rückgang des 21. Jahrhunderts gibt, gibt es nur geringes Vertrauen in das Ausmaß des Trends. Es gibt mittleres Vertrauen, dass es vor 2100 keinen abrupten Kollaps geben wird. (C.3.4)
+Es gibt begrenzte Belege für Ergebnisse mit geringer Wahrscheinlichkeit und hohen Auswirkungen (resultierend aus Eisschild-Instabilitätsprozessen, die durch tiefe Ungewissheit charakterisiert sind und in einigen Fällen Kipppunkte involvieren), die den Eisverlust vom antarktischen Eisschild für Jahrhunderte unter hohen THG-Emissionsszenarien stark erhöhen würden (z.B. SSP5-8.5). (B.5.2)
+\end{quote}
+
+Für SCC-Berechnungen ist die durch diese Art von Kipppunkt implizierte Forschungsfrage, ob solche Ereignisse in der Vergangenheit unter Klimabedingungen beobachtet wurden, die dem ähneln, was wir derzeit erleben oder in naher Zukunft erleben werden. AR6 findet wenig Belege für einen bevorstehenden Kollaps der atlantischen meridionalen Umwälzzirkulation oder der westantarktischen Eisdecke. Es stellt fest, dass es keinen Kipppunkt gibt, der mit arktischem Meereis verbunden ist (AR6 Technical Summary S. 76).
+
+Dietz et al. bezogen mehrere potenzielle Kipppunkte (abrupte Veränderungen) in ein SCC-Modell ein und fanden, dass sie etwa 25 Prozent zur Schätzung hinzufügten, hauptsächlich verbunden mit auftauendem Permafrost und Freisetzung von Methanhydraten. Das IPCC betrachtet dieses Szenario jedoch als sehr unwahrscheinlich (AR6 Technical Summary S. 107).
+
+Zusammenfassend könnte es unbekannte Bifurkations-Kipppunkte geben, die mit natürlichen Klimaprozessen verbunden sind, aber diese Möglichkeit übersetzt sich nicht in spezifische Leitlinien für die SCC. Es gibt potenzielle abrupte Veränderungspunkte im Klimasystem als Reaktion auf die Erwärmung, obwohl das IPCC den meisten, einschließlich der größten, geringe Wahrscheinlichkeiten zuweist. Wenn diese berücksichtigt wurden, ist das Ergebnis nur eine bescheidene Erhöhung des SCC-Werts im 21. Jahrhundert.
+
+\subsection{Gibt es Alternativen?}
+Es wird zunehmend argumentiert, dass die SCC zu variabel ist, um für politische Entscheidungsträger nützlich zu sein. Cambridge Econometrics (Thoung, 2017) erklärte, es sei \emph{Zeit, sie zu töten} aufgrund von Ungewissheiten. Das Vereinigte Königreich und die EU verwenden die SCC nicht mehr für Politikbewertungen und entscheiden sich für \emph{zielkonsistente} Kohlenstoffpreise (UK Department for Energy Security and Net Zero 2022, Dunne 2017). Die Ungewissheit von SCC-Schätzungen bedeutet jedoch nicht, dass andere regulatorische Instrumente von Natur aus besser oder effizienter sind. Viele Emissionsvorschriften (wie Elektrofahrzeug-Mandate, Erneuerbare-Energie-Mandate, Energieeffizienz-Vorschriften und Verbote bestimmter Arten von Haushaltsgeräten) kosten weit mehr pro Tonne Emissionsminderung als jede Mainstream-SCC-Schätzung, was ausreicht, um festzustellen, dass sie einen Kosten-Nutzen-Test nicht bestehen.
+
 \vfill
 \noindent\textbf{Literaturverzeichnis:}
 
 \begingroup
 \parindent=0pt
 \everypar{\hangindent=2em\hangafter=1\relax}
-...
+
+AR6: Intergovernmental Panel on Climate Change Sixth Assessment Report (2021) Working Group I
+Contribution. www.ipcc.ch.
+
+Arent, D.J., R.S.J. Tol, E. Faust, J.P. Hella, S. Kumar, K.M. Strzepek, F.L. Tóth, and D. Yan (2014) Key
+economic sectors and services. In: Climate Change 2014: Impacts, Adaptation, and Vulnerability. Part
+A: Global and Sectoral Aspects. Contribution of Working Group II to the Fifth Assessment Report of
+the Intergovernmental Panel on Climate Change [Field, C.B., V.R. Barros, D.J. Dokken, K.J. Mach,
+M.D. Mastrandrea, T.E. Bilir, M. Chatterjee, K.L. Ebi, Y.O. Estrada, R.C. Genova, B. Girma, E.S.
+Kissel, A.N. Levy, S. MacCracken, P.R. Mastrandrea, and L.L.White (eds.)]. Cambridge University
+Press, Cambridge, United Kingdom and New York, NY, USA, pp. 659-
+708.\url{https://www.ipcc.ch/site/assets/uploads/2018/02/WGIIAR5-Chap10_FINAL.pdf}
+
+Barker, D. (2023) Temperature Shocks and Economic Growth: Comment on Dell, Jones, and Olken. Econ
+Journal Watch 20(2) 234-253 https://econjwatch.org/articles/temperature-shocks-and-economic-
+growth-comment-on-dell-jones-and-olken
+
+Barrage, Lint and William Nordhaus (2024) Policies, projections, and the social cost of carbon: Results
+from the DICE-2023 model. Proceedings of the National Academy of Sciences 121 (13) e2312030121
+https://doi.org/10.1073/pnas.2312030121
+
+Berg, Kimberly, Chadwick C Curtis and Nelson Mark. (2021) GDP and temperature: Evidence on cross-
+country response heterogeneity. NBER Working Paper 31327 June 2023
+http://www.nber.org/papers/w31327
+
+Blickle, Kristian; Sarah N. Hamerling, and Donald P. Morgan (2021) : How bad are weather disasters for
+banks?, Staff Reports, No. 990, Federal Reserve Bank of New York, New York, NY
+https://www.econstor.eu/bitstream/10419/247913/1/sr990.pdf
+
+Brunetti, Maura and Charline Ragon (2023) Attractors and bifurcation diagrams in complex climate models.
+Physical Review E 107 054214 https://journals.aps.org/pre/abstract/10.1103/PhysRevE.107.054214
+
+Burke, Marshall, Solomon M Hsiang, and Edward Miguel (2015). Global non-linear effect of temperature
+on economic production. Nature, 527(7577):235–239.
+
+Council of Economic Advisors-Office of Management and Budget (CEA-OMB 2023) Methodologies and
+considerations for integrating the physical and transition risks of climate change into macroeconomic
+forecasting for the president’s budget. March 13, 2023. https://bidenwhitehouse.archives.gov/wp-
+content/uploads/2023/03/CEA-OMB-White-Paper.pdf
+
+Crawford, John D (1991) Introduction to Bifurcation Theory. Reviews of Modern Physics 63(4) October
+1991 991—1037.
+
+Dakos, Vasilis, Chris Boulton, Joshua Buxton et al. (2024) Tipping point detection and early warnings in
+climate, ecological, and human systems. Earth System Dynamics 15 1117—1135
+https://doi.org/10.5194/esd-15-1117-2024
+
+Dayaratna, Kevin and Ross McKitrick (2023) "Reply to comment on “climate sensitivity, agricultural
+productivity and the social cost of carbon in fund” by Philip Meyer" Environmental Economics and
+Policy Studies 2023 link.springer.com/article/10.1007/s10018-023-00364-2
+
+Dayaratna, Kevin, Ross McKitrick and David Kreutzer (2017) Empirically-Constrained Climate Sensitivity
+and the Social Cost of Carbon. Climate Change Economics April 2017 DOI:
+http://dx.doi.org/10.1142/S2010007817500063
+
+Dayaratna, Kevin, Ross McKitrick and Patrick J. Michaels (2020) Climate Sensitivity, Agricultural
+Productivity and the Social Cost of Carbon in FUND. Environmental Economics and Policy Studies
+https://doi.org/10.1007/s10018-020-00263-w
+
+Dell, Melissa, Benjamin F. Jones, and Benjamin A. Olken (2012). Temperature shocks and economic
+growth: Evidence from the last half century. American economic journal: Macroeconomics, 4(3):66–
+95, 2012. ISSN 1945-7707.
+
+Dietz, S., J. Rising, T. Stoerk, G. Wagner (2021) Economic impact of tipping points in the climate system.
+Proceedings of the National Academy of Science 2021 Vol. 118 No. 34 e2103081118
+
+Dunne, Daisy (2017), “Q\&A: The Social Cost of Carbon,” Carbon Brief, February 14, 2017,
+https://www.carbonbrief.org/qa-social-cost-carbon/
+
+Formetta, Giuseppe and Luc Feyen (2019) Empirical evidence of declining global vulnerability to
+climate-related hazards. Global Environmental Change 57 101920
+https://doi.org/10.1016/j.gloenvcha.2019.05.004
+
+Greßer, Christina, Daniel Meierrieks, and David Stadelmann (2021) The link between regional temperature
+and regional incomes: econometric evidence with sub-national data. Economic Policy, 36(107):523–
+550, 2021.
+
+Haverd, V., Raupach, M., Briggs, P., et al. (2020). Higher than expected CO$_2$ fertilization inferred from
+leaf to global observations. Global Change Biology, 26, 2390–2402.
+
+Hu, Bin and Ross McKitrick (2015) Climatic Variations and the Market Value of Insurance Firms.
+Journal of Insurance Issues Vol. 39, No. 1, pp. 92-111 https://www.jstor.org/stable/43741103
+
+Kypke, K. L., Langford, W. F., and Willms, A. R.: Anthropocene climate bifurcation, Nonlinear Processes
+in Geophysics, 27, 391–409, https://doi.org/10.5194/npg-27-391-2020, 2020.
+
+Lavelle, Marianne (2019) Carbon Tax Plans: How They Compare and Why Oil Giants Support One of
+Them. Inside Climate News March 7, 2019 \url{https://insideclimatenews.org/news/07032019/carbon-tax-proposals-compare-baker-shultz-exxon-conocophillips-ccl-congress/}
+
+Lenton, T.M., D.I. Armstrong McKay, et al. (eds) (2023) The Global Tipping Points Report 2023.
+University of Exeter, Exeter, UK. \url{https://report-2023.global-tipping-points.org/}
+
+Lewis, N., (2013) An objective Bayesian, improved approach for applying optimal fingerprint techniques
+to estimate climate sensitivity. Journal of Climate, 26, 7414-7429.
+https://journals.ametsoc.org/doi/abs/10.1175/JCLI-D-12-00473.1
+
+McKitrick, Ross R. (2025) Extended Crop Yield Meta-analysis Data do not Support Upward SCC
+Revision. Scientific Reports 15 article 5575 https://www.nature.com/articles/s41598-025-90254-2
+
+Mohaddes, Kamiar, Ryan Ng., Hashem Psaran, Mehdi Raissi and Jui-Chung Yang (2023) Climate change
+and economic activity: evidence from US states. Oxford Open Economics Vol 2 odac010
+https://doi.org/10.1093/ooec/odac010
+
+Moore, Frances C. and Delavane B. Diaz (2015) Temperature impacts on economic growth warrant
+stringent mitigation policy. Nature Climate Change, 5(2):127–131, 2015. ISSN 1758-678X.
+Moore FC, Baldos U, Hertel T, Diaz D (2017) New science of climate change impacts on agriculture
+implies higher social cost of carbon. Nature Communications 8:1607. https://doi.org/10.1038/s41467-
+017-01792-x
+
+Newell, Richard G., Brian C. Prest, and Steven E. Sexton (2021). The GDP-temperature relationship:
+Implications for climate change damages. Journal of Environmental Economics and Management, 108
+https://doi.org/10.1016/j.jeem.2021.102445
+
+Nordhaus, William (2006). Geography and macroeconomics: New data and new findings. Proceedings of
+the National Academy of Sciences, 103(10):3510–3517, 2006. ISSN 0027-8424.
+
+Nordhaus, William. (2018) Projections and Uncertainties About Climate Change in an Era of Minimal
+Climate Policies. American Economic Journal: Economic Policy August 2018, 10(3): 333-360.
+https://pubs.aeaweb.org/doi/pdfplus/10.1257/pol.20170046
+
+Nordhaus, W. (1993) Optimal Greenhouse-Gas Reductions and Tax Policy in the "DICE" Model
+American Economic Review Vol. 83, No. 2, (Papers and Proceedings) pp.313-317.
+
+O’Neill, Brian C. (2023) Envisioning a future with climate change. Nature Climate Change 13, pages 874–
+876 https://www.nature.com/articles/s41558-023-01784-4
+
+Palmer, TN, A Döring and G Seregin (2014) The real butterfly effect. Nonlinearity 27(9) 10.1088/0951-
+7715/27/9/R123 https://iopscience.iop.org/article/10.1088/0951-7715/27/9/R123/meta
+
+Pielke Jr., Roger (2018): Tracking progress on the economic costs of disasters under the indicators of the
+sustainable development goals, Environmental Hazards, DOI: 10.1080/17477891.2018.1540343
+
+Pielke Jr., Roger (2020) Economic ‘normalisation’ of disaster losses 1998–2020: a literature review and
+assessment,” Environmental Hazards, 2020, pp. 1-19
+
+Pielke Jr., Roger (2023) Global disaster losses: 1990-2023 Substack essay
+https://rogerpielkejr.substack.com/p/global-disaster-losses1990-2023
+
+Resources for the Future (2025) “Social Cost of Carbon Explorer,” Resources for the Future website,
+accessed April 22, 2025, https://www.rff.org/publications/data-tools/scc-explorer/.
+
+Roe, Gerard H. and Yoram Bauman (2013) Climate Sensitivity: Should the climate tail wag the policy
+dog? Climatic Change (2013) 117:647–662 DOI 10.1007/s10584-012-0582-6
+
+Sandmo, Agnar (1975) “Optimal Taxation in the Presence of Externalities.” Swedish Journal of Economics
+77 (1), 86–98.
+
+Schelling, Thomas C (1992) Some economics of global warming. The American Economic Review, 82
+(1):1–14.
+
+Shen, Bo-Wen, Roger A Pielke Sr and Xubin Zeng (2023) The 50th Anniversary of the Metaphorical
+Butterfly Effect since Lorenz (1972): Multistability, Multiscale Predictability, and Sensitivity in
+Numerical Models. Atmosphere 2023 14(8) https://doi.org/10.3390/atmos14081279
+
+Storm, S (2017) “How the Invisible Hand is Supposed to Adjust the Natural Thermostat: A Guide for the
+Perplexed.” Science and Engineering Ethics vol 23: 1307—1331.
+
+Thoung, Chris (2017) “Is It Time to Kill Off the Social Cost of Carbon?” Cambridge Econometrics Blog,
+September 14, 2017, https://www.camecon.com/blog/time-kill-social-cost-carbon/.
+
+Tol, Richard S.J. (1997) On the optimal control of carbon dioxide emissions: an application of FUND
+Environmental Modeling and Assessment 2: 151—163.
+
+Tol, Richard S.J. (2017). "The Private Benefit of Carbon and its Social Cost," Working Paper Series
+0717, Department of Economics, University of Sussex Business School.
+https://ideas.repec.org/p/sus/susewp/0717.html
+
+Tol, Richard S.J. (2024) A meta-analysis of the total economic impact of climate change. Energy Policy
+185 113922 https://doi.org/10.1016/j.enpol.2023.113922
+
+UK Department for Energy Security and Net Zero (2022). “Carbon Valuation.” GOV.UK, last updated
+April 4, 2022. https://www.gov.uk/government/collections/carbon-valuation--2.
+US Environmental Protection Agency (2023) Supplementary Material for the Regulatory Impact Analysis
+for the Final Rulemaking, “Standards of Performance for New, Reconstructed, and Modified Sources
+and Emissions Guidelines for Existing Sources: Oil and Natural Gas Sector Climate Review”, EPA
+Report on the Social Cost of Greenhouse Gases: Estimates Incorporating Recent Scientific Advances,
+November 2023, \url{https://www.epa.gov/system/files/documents/2023-
+12/epa_scghg_2023_report_final.pdf accessed February 28, 2024.}
+
+Yang, Yimin, Fei Jia, and Haoran Li. Estimation of panel data models with mixed sampling frequencies
+(2023). Oxford Bulletin of Economics and Statistics, 85(3):514–544.
+
+Zhao, Xiaobing, Mason Gerety, and Nicolai V. Kuminoff (2018) Revisiting the temperature-economic
+growth relationship using global subnational data. Journal of environmental management, 223:537–
+544, 2018.
+
 \endgroup
 
 \cleardoublepage
 %\numberwithin{figure}{chapter}
-\chapter{12}
+\chapter{GLOBALE KLIMAAUSWIRKUNGEN VON U.S.-EMISSIONSPOLITIKEN}
+
 \paragraph{Kapitelzusammenfassung}
 \begin{quote}
-...
+Von U.S.--Politikmaßnahmen wird erwartet, dass sie unentdeckbar kleine direkte Auswirkungen auf das globale Klima haben werden, und alle Effekte werden nur mit langen Verzögerungen auftreten.
 \end{quote}
-\section{12.1}
-\section{12.2}
-\section{12.3}
+\section{Das Skalenproblem}
+Die Emissionsraten und atmosphärischen Konzentrationen von Kriterien-Luftschadstoffen sind eng verbunden, weil ihre Lebensdauern kurz und ihre Konzentrationen klein sind; wenn lokale Emissionen reduziert werden, sinkt die lokale Verschmutzungskonzentration schnell, normalerweise innerhalb weniger Tage. Aber die globale durchschnittliche CO$_2$-Konzentration verhält sich sehr anders, da sich Emissionen global vermischen und der globale Kohlenstoffkreislauf umfangreich und langsam ist. Jede Änderung lokaler CO$_2$-Emissionen heute wird nur einen sehr kleinen globalen Effekt haben, und nur mit einer langen Verzögerung.
+Nach der Emission eines Pulses (Freisetzung) von CO$_2$ in die Atmosphäre werden nur etwa 40 ± 15 Prozent des zusätzlichen CO$_2$ nach zwanzig Jahren sequestriert worden sein. Dieser Anteil steigt auf 75 ± 10 Prozent nach tausend Jahren, und der Rest wird über die folgenden Zehntausende von Jahren graduell entfernt werden (Ciais et al., 2013, S. 472-473). Folglich würde jede Reduktion der U.S.-Emissionen nur bescheiden verlangsamen, aber nicht verhindern, den Anstieg der globalen CO$_2$-Konzentration. Und selbst wenn globale Emissionen morgen stoppen würden, würde es Jahrzehnte oder Jahrhunderte dauern, eine bedeutsame Reduktion der globalen CO$_2$-Konzentration und damit menschlicher Einflüsse auf das Klima zu sehen.
+Die Reduktion des atmosphärischen CO$_2$-Bestands würde erfordern, dass Emissionen unter die natürliche Sequestrierungsrate fallen, unter der Annahme, dass die gesamte Zunahme anthropogen ist. Da diese Rate in den letzten Jahrzehnten durchschnittlich etwa 50 Prozent der Emissionen betragen hat, würde eine Reduktion globaler Emissionen um 50 Prozent (zumindest vorübergehend) den Anstieg des atmosphärischen CO$_2$ stoppen. Das Kyoto-Protokoll von 1997 schlug vor, die CO$_2$-Emissionen der Industrienationen auf bescheidene fünf Prozent unter die Niveaus von 1990 bis zum Jahr 2012 zu begrenzen. Obwohl diese Politik für die meisten Nationen zu schwierig umzusetzen war, hätte vollständige Einhaltung die atmosphärischen CO$_2$-Niveaus nicht wesentlich reduziert. Sie hätte nur das CO$_2$-Wachstum leicht verlangsamt und das projizierte Niveau für das Jahr 2100 stattdessen in 2105 erreicht (Wigley, 1998). Lomborg (2016) schätzte, dass vollständige Einhaltung der ursprünglichen Verpflichtungen im Pariser Abkommen die Erwärmung nicht stoppen würde, sie würde nur etwa \SI{0.1}{\celsius} Erwärmung verhindern und das Erreichen der Baseline-Temperaturniveaus des Jahres 2100 um etwa ein Jahrzehnt verzögern.
+Somit werden im Kontrast zur konventionellen Luftverschmutzungskontrolle selbst drastische lokale Maßnahmen vernachlässigbare lokale Effekte haben, und nur mit einer langen Verzögerung. Die Praxis, unilaterale U.S.-Reduktionen als "Bekämpfung des Klimawandels" oder "Maßnahmen zum Klima" zu bezeichnen, unter der Annahme, dass wir den Klimawandel stoppen können, spiegelt daher ein profundes Missverständnis des Ausmaßes des Problems wider.
+
+\section{Fallstudie: U.S.-Kraftfahrzeugemissionen}
+Das Skalenproblem kann mit Bezug auf U.S.-Kraftfahrzeuge veranschaulicht werden. Die EPA-Gefährdungsfeststellung von 2009 konzentrierte sich auf CO$_2$-Emissionen von Pkw und leichten Lastkraftwagen in den U.S., weil Abschnitt 202(a) des Clean Air Act die EPA verpflichtet, Emissionsstandards für Kraftfahrzeuge festzulegen, wenn festgestellt wird, dass Schadstoffe die öffentliche Gesundheit oder das Wohlergehen gefährden. Die Gefährdungsfeststellung von 2009 verpflichtete daher die EPA, Emissionen neuer Kraftfahrzeuge zu regulieren, angeblich um klimabezogene Schäden für die U.S.-Öffentlichkeit zu reduzieren oder zu eliminieren.
+Zwei Fragen, die sich natürlich stellen, sind: (1) Wie groß wäre eine Reduktion der CO$_2$-Emissionen, die aus einer solchen Regulierung resultieren würde? und (2) Was wären die Klimaauswirkungen einer solchen Regulierung?
+Die erste Frage kann beantwortet werden, indem U.S.-fahrzeugbasierte CO$_2$-Emissionen mit dem globalen Total verglichen werden. Die zweite Frage kann beantwortet werden, indem die Tatsache verwendet wird, dass die Reduktion der globalen Erwärmung, entsprechend den Modellen, auf die sich die EPA stützt, proportional zur Reduktion globaler Emissionen wäre, unter Berücksichtigung der Tatsache, dass die Änderung im CO$_2$-Gehalt der Atmosphäre in einem gegebenen Jahr das Resultat der gesamten globalen CO$_2$-Emissionen ist, nicht nur der U.S.-Emissionen.
+Im Jahr 2022 beliefen sich die Emissionen von U.S.-Pkw und leichten Lastkraftwagen auf insgesamt 1,05 Milliarden Tonnen Kohlendioxid (GtCO$_2$, EPA 2024). Währenddessen beliefen sich die globalen CO$_2$-Emissionen aus Energienutzung auf insgesamt 34,6 GtCO$_2$ (Energy Institute 2024). Daher machen U.S.-Pkw und leichte Lastkraftwagen nur 3,0 Prozent der globalen energiebezogenen CO$_2$-Emissionen aus. Als erste Näherung können wir sagen, dass selbst die Eliminierung aller U.S.-fahrzeugbasierten Emissionen die Akkumulation von CO$_2$ in der Atmosphäre über ein Jahrhundert um ein Jahr oder zwei verzögern würde.
+Es würde auch den gesamten Erwärmungstrend um höchstens etwa 3 Prozent reduzieren. Für den Zeitraum 1979-2023, der die umfangreichste globale Abdeckung verschiedener Wetterdatentypen hat, werden Erwärmungstrends mit einer Präzision von etwa ± 15 Prozent bestimmt, sodass die Auswirkung der Reduktion der globalen Erwärmungsrate durch Eliminierung der U.S.-Fahrzeug-CO$_2$-Emissionen weit unterhalb der Messbarkeitsgrenze läge. Angesichts dessen, dass die global-durchschnittliche Temperatur die direkteste Klimawandel-Metrik ist, wären Auswirkungen auf sekundäre Klimametriken (z.B. schweres Wetter, Überschwemmungen, Dürre, etc.) durch Reduktion der U.S.-Fahrzeug-CO$_2$-Emissionen noch weniger messbar.
+Folglich können im Gegensatz zum Fall lokaler Luftschadstoffe wie Partikel und Ozon selbst die aggressivsten regulatorischen Maßnahmen zu Treibhausgasemissionen von U.S.-Fahrzeugen nicht erwartet werden, angebliche Klimagefahren für die U.S.-Öffentlichkeit in messbarem Umfang zu beheben.
+
+\section{Abschließende Gedanken}
+Dieser Bericht unterstützt einen nuancierteren und evidenzbasierten Ansatz zur Informierung der Klimapolitik, der Ungewissheiten explizit anerkennt. Die Risiken und Vorteile eines sich unter sowohl natürlichen als auch menschlichen Einflüssen verändernden Klimas müssen gegen die Kosten, Wirksamkeit und Kollateralauswirkungen jeder "Klimaaktion" abgewogen werden, unter Berücksichtigung des Bedarfs der Nation nach zuverlässiger und erschwinglicher Energie mit minimaler lokaler Verschmutzung.
+Über die Fortsetzung präziser, ununterbrochener Beobachtungen des globalen Klimasystems hinaus wird es wichtig sein, realistische Annahmen über zukünftige Emissionen zu treffen, Klimamodelle zu re-evaluieren, um Verzerrungen und Ungewissheiten anzugehen, und die Limitationen von Extremereignis-Zuordnungsstudien klar anzuerkennen. Ein Ansatz, der sowohl die potenziellen Risiken als auch Vorteile von CO$_2$ anerkennt, anstatt sich auf fehlerhafte Modelle und extreme Szenarien zu verlassen, ist wesentlich für informierte und effektive Entscheidungsfindung.
+
 \vfill
 \noindent\textbf{Literaturverzeichnis:}
 
@@ -3277,5 +3557,82 @@ growth relationship using global subnational data. Journal of environmental mana
 544, 2018.
 
 \endgroup
+
+\section*{Glossar}
+\begin{glossar}
+\item[2XCO2] Verdopplung des atmosphärischen Kohlendioxids (CO$_2$), ein häufig verwendeter Referenzwert für die Behandlung des Klimawandels. Im Jahr 2025 waren die atmosphärischen CO$_2$-Konzentrationen etwa 50 Prozent des Weges zu 2XCO$_2$ im Vergleich zu 1800.
+\item[ABATEMENT] Im Kontext der Umweltpolitik die Reduktion von Emissionen.
+\item[ACE] (Accumulated Cyclone Energy) Ein statistisches Maß für die über die Lebensdauer akkumulierte Energie eines tropischen Wirbelsturms, berechnet aus einer Summierung des Quadrats der maximalen anhaltenden Windgeschwindigkeiten.
+\item[ACIDIFICATION] Ein häufig verwendeter Begriff für die Reduktion des Ozean-pH-Werts von alkalischeren zu weniger alkalischen Werten.
+\item[ACRIM-LÜCKE] (Active Cavity Radiometer Irradiance Monitor) Die Lücke in den Daten zur gesamten Sonneneinstrahlung zwischen 1989 und 1991, verursacht durch eine Verzögerung beim Start eines satellitengetragenen Monitors rechtzeitig zur Überlappung und Interkalibrierung mit dem vorherigen System.
+\item[AEROSOLE] Winzige feste oder flüssige Partikel, die in der Luft schweben.
+\item[ALKALISCH] Einen chemischen pH-Wert größer als 7,0 habend. Das "Gegenteil" von sauer, was einen pH-Wert kleiner als 7,0 bedeutet.
+\item[AMBIENT] Bezogen auf die unmittelbare Umgebung von etwas.
+\item[AMO] Atlantische Multidekadische Oszillation, ein 60-jähriger Zyklus von Meeresoberflächentemperaturen im Nordatlantik.
+\item[ANTHROPOGEN] Von Menschen verursacht.
+\item[AR] (Assessment Reports) Periodische Bewertungen, veröffentlicht vom Intergovernmental Panel on Climate Change, die das aktuelle Wissen über das Klimasystem, globalen Wandel und damit verbundene Themen evaluieren. Ein AR besteht nun aus Berichten von drei Arbeitsgruppen, wobei die erste (WG1) sich mit den physikalischen Wissenschaften befasst und die anderen mit gesellschaftlichen Auswirkungen und Minderungsstrategien. Der jüngste war AR6.
+\item[ATTRIBUTION] Behauptung einer kausalen Beziehung, hauptsächlich von anthropogenen THG-Emissionen zu beobachteten Klimamustern.
+\item[AUTOKORRELATION] Das Phänomen, bei dem der aktuelle Wert einer zufälligen Zeitreihenvariable mit ihrem Wert in einer vorherigen Zeitperiode korreliert ist.
+\item[BIOMASSE] Die gesamte Quantität oder das Gewicht organischer Materie in einem gegebenen Gebiet oder Volumen.
+\item[CARBON] Das 6. Element im Periodensystem. Populär als Kurzbezeichnung für Kohlendioxid verwendet.
+\item[CMIP] (Coupled Model Intercomparison Project) Die organisierte Anstrengung des Intergovernmental Panel on Climate Change, viele verschiedene globale Ozean-Atmosphäre-Klimamodelle zu vergleichen, wenn sie alle mit denselben Emissionsszenarien angetrieben werden. Die beiden jüngsten waren CMIP5 und CMIP6 für jeweils AR5 und AR6.
+\item[KLIMAWANDEL] Eine Änderung des Klimas aufgrund menschlicher Einflüsse, im Gegensatz zur Klimavariabilität, die natürlichen Ursprungs ist.
+\item[CONUS] Die zusammenhängenden 48 U.S.-Staaten.
+\item[DICE] (Dynamic Integrated model of the Climate and Economy) Ein Integriertes Bewertungsmodell, entwickelt von William Nordhaus im Jahr 1993.
+\item[DISKONTSATZ] Der Zinssatz, der verwendet wird, um zukünftige Kosten und Nutzen in ihren Gegenwartswert umzuwandeln. Variiert umgekehrt mit dem Gegenwartswert, sodass ein hoher Diskontsatz den Gegenwartswert zukünftiger Kosten und Nutzen reduziert.
+\item[TROCKENEIS] Gefrorenes Kohlendioxid.
+\item[ÖKONOMETRIE] Der Zweig der Wirtschaftswissenschaften, der sich mit der Verwendung statistischer Methoden (hauptsächlich multiple Regression) zur Analyse wirtschaftlicher Systeme befasst.
+\item[ECS] (Equilibrium Climate Sensitivity) Die Gesamtmenge der eventuellen global-durchschnittlichen Oberflächenerwärmung als Reaktion auf eine hypothetische Verdopplung der atmosphärischen CO$_2$-Konzentration im Vergleich zu vorindustriellen Niveaus.
+\item[EL NIÑO] Die warme Phase der El Niño – Southern Oscillation, die schwächeres Aufwelling kalten Wassers vor der südamerikanischen Küste und schwächere pazifische Passatwinde beinhaltet.
+\item[EMISSIONSSZENARIO] Ein angenommenes Szenario zukünftiger Treibhausgasemissionen (oder resultierender atmosphärischer Konzentrationen) basierend auf Annahmen bezüglich globaler wirtschaftlicher Aktivität, der Verbreitung fossiler Brennstoffnutzung und (manchmal) globaler Kohlenstoffkreislaufmodell-Schätzungen der Rate der CO$_2$-Aufnahme durch Land und Ozean.
+\item[ENDANGERMENT FINDING] (EF) Die Feststellung von 2009 durch den Administrator der Environmental Protection Agency, dass Emissionen gut durchmischter Treibhausgase (hauptsächlich CO$_2$) die menschliche Gesundheit und das Wohlergehen gefährden.
+\item[ENSO] El Niño – Southern Oscillation, eine prominente natürliche Klimaschwankung, die jährliche Variationen im Aufwelling kalten Wassers vor der äquatorialen Küste Südamerikas und damit verbundene Verstärkung oder Abschwächung der Passatwinde über den Pazifischen Ozean beinhaltet.
+\item[FACE] (Free-Air CO$_2$ Enrichment) Großmaßstäbliche Freiluft-Studien, die Pflanzen erhöhten CO$_2$-Konzentrationen aussetzen und zukünftige Klimaszenarien simulieren.
+\item[FOSSILER BRENNSTOFF] Ein natürlicher Kohlenwasserstoffbrennstoff wie Kohle, Öl oder Erdgas, der in der geologischen Vergangenheit aus den Überresten lebender Organismen gebildet wurde.
+\item[FUND] (Framework for Uncertainty, Negotiation, and Distribution) Ein Integriertes Bewertungsmodell, entwickelt von Richard Tol im Jahr 1997.
+\item[GBR] (Great Barrier Reef) Das weltweit größte Korallenriff-Ökosystem vor der Nordostküste Australiens.
+\item[GDP] (Gross Domestic Product) Gesamtmarktwert aller finalen Güter und Dienstleistungen, die innerhalb der Grenzen eines Landes produziert werden, normalerweise über ein Jahr.
+\item[GHCN] (Global Historical Climatology Network) Eine zeitlich variierende Anzahl global verteilter Wetterstationen, die stündliche, tägliche oder monatliche Messungen von Niederschlag, Temperatur und manchmal Schneefall und Schneehöhe durchführen.
+\item[GLOBALE ERGRÜNUNG] Die satellitenbeobachtete Zunahme der Grünfärbung in den meisten bewaldeten Landgebieten, beobachtet seit den frühen 1980er Jahren.
+\item[GNP] (Gross National Product) Gesamtmarktwert aller finalen Güter und Dienstleistungen, die von den Bürgern eines Landes produziert werden, einschließlich Exporte und Importe, normalerweise über ein Jahr.
+\item[TREIBHAUSEFFEKT] (GHE) Die Tendenz jeder planetaren Atmosphäre, die Treibhausgase enthält, in den untersten Schichten wärmer zu sein, als wenn diese Gase nicht existierten.
+\item[TREIBHAUSGAS] (GHG) Ein atmosphärisches Gas, das Infrarotstrahlung absorbiert und emittiert, besonders Wasserdampf, CO$_2$ und Methan.
+\item[BRUTTOPRIMÄRPRODUKTION] Die gesamte chemische Energie, die von Pflanzen während der Photosynthese über einen bestimmten Zeitraum verwendet wird. Die Nettoprimärproduktion ist der Rückstand nach Verwendung der für die Atmung benötigten Energie und repräsentiert den Beitrag zum Biomassewachstum.
+\item[HURST-PHÄNOMEN] Siehe Langzeit-Persistenz.
+\item[HYDROLOGIE] Das Studium der Wasserbewegung, besonders auf dem Land und in der Atmosphäre.
+\item[IAM] (Integrated Assessment Model) Ein computergestütztes Werkzeug, das Wirtschaftswissenschaften, Klimawissenschaft und Sozialwissenschaften kombiniert, um quantitative Beziehungen zwischen menschlichen und Erdsystemen bereitzustellen und dabei zu helfen, Politikentscheidungen zu informieren.
+\item[IEA] (International Energy Agency) Eine in Paris ansässige zwischenstaatliche Organisation, gegründet 1974, die Politikempfehlungen, Analysen und Daten zum globalen Energiesektor bereitstellt.
+\item[IPCC] (Intergovernmental Panel on Climate Change) Ein Panel internationaler Experten und Regierungsvertreter, gegründet von den Vereinten Nationen und der Weltorganisation für Meteorologie im Jahr 1988, um Regierungen auf allen Ebenen wissenschaftliche Informationen bereitzustellen, die sie zur Entwicklung von Klimapolitiken nutzen können.
+\item[IR] (Infrarot) Wärmestrahlung, die alle festen Objekte und Treibhausgase aufgrund ihrer Temperatur emittieren.
+\item[LA NIÑA] Die kühle Phase von ENSO, die stärkeres Aufwelling kalten Wassers vor der südamerikanischen Küste und stärkere pazifische Passatwinde beinhaltet.
+\item[MAIS] Corn.
+\item[MODELL] Ein Computercode oder eine Sammlung von Codes, die unser Wissen über verschiedene Prozesse und die Wechselwirkungen zwischen diesen Prozessen quantifizieren.
+\item[MORTALITÄT] Tod oder Anzahl der Todesfälle, normalerweise ausgedrückt für eine spezifische Bevölkerung und Periode.
+\item[NCA] (National Climate Assessment) Ein periodischer Bericht, beauftragt durch den Global Change Research Act von 1990, der die Auswirkungen des Klimawandels auf die Vereinigten Staaten zusammenfasst. Es gab fünf NCA-Berichte: NCA1 (2000), NCA2 (2009), NCA3 (2014), NCA4 (2017-18) und NCA5 (2023).
+\item[OECD] (Organization for Economic Cooperation and Development) Eine Gruppe von 38 Mitgliedsländern, die ein demokratisches Regierungssystem und freie Wirtschaftssysteme haben.
+\item[PALÄOKLIMA] Klima der fernen Vergangenheit, vor der weiten Verwendung moderner Wetterinstrumente (typischerweise vor 1850), was die Verwendung von "Proxy"-Messungen wie Baumringen, Eiskernen, Pollenaufzeichnungen usw. erforderlich macht.
+\item[PDI] (Power Dissipation Index) Eine statistische Schätzung des akkumulierten zerstörerischen Potenzials eines tropischen Wirbelsturms über die Zeit, berechnet als Summierung des Kubiks der maximalen anhaltenden Windgeschwindigkeiten.
+\item[PDO] Pacific Decadal Oscillation, eine wiederkehrende Ozean-Atmosphäre-Wechselwirkung, die über das pazifische Becken zentriert ist und mit vorwiegend warmen oder kühlen Mustern verbunden ist, die das globale Klima beeinflussen.
+\item[PHOTOSYNTHESE] Der Prozess, durch den Pflanzen wachsen, der Kohlendioxid, Wasser und Licht bei ausreichend warmen Temperaturen erfordert (10 bis \SI{35}{\celsius} für optimale Funktion).
+\item[PPM] Teile pro Million, ein Maß für die Konzentration einer Substanz in (zum Beispiel) der Atmosphäre.
+\item[VORINDUSTRIELL] Die kurzfristige historische Periode, vor der menschliche Treibhausgasemissionen als bedeutsam betrachtet wurden, normalerweise angenommen als die Mitte der 1700er Jahre.
+\item[RADIATIVES FEEDBACK] Eine Änderung im Gleichgewicht zwischen absorbierter Sonnenstrahlung und emittierter Infrarot-(IR)-Strahlung, bezogen auf die Oberseite der Atmosphäre, verursacht durch Änderungen der Oberflächentemperatur.
+\item[RADIATIVER ANTRIEB] Die Änderung im Gleichgewicht zwischen absorbierter Sonnenstrahlung und emittierter Infrarot-(IR)-Strahlung, bezogen auf die Oberseite der Atmosphäre, verursacht durch Änderungen in Treibhausgasen, anthropogenen Aerosolen, Vulkanen usw.
+\item[RCP-SZENARIEN] (Representative Concentration Pathway) Verschiedene Szenarien für zukünftige Treibhausgasemissionen und ihre Auswirkungen auf die Atmosphäre, eingeführt im Fünften Bewertungsbericht des IPCC (AR5). RCP-Szenarien haben eine Nummerierungsbezeichnung (z.B. RCP6.0), die angibt, wie viel radiativen Antrieb sie im Jahr 2100 relativ zu vorindustriellen Zeiten annehmen, in Watt pro Quadratmeter. RCP4.5 und RCP6.0 sind Zwischenszenarien, während RCP8.5 ein extremes Szenario mit sehr großen zukünftigen Treibhausgasemissionen ist.
+\item[REGRESSION] Eine statistische Methode zur Auswahl der Koeffizienten einer linearen Gleichung, um das Verhalten einer abhängigen Variable in Bezug auf Variationen in einer oder mehreren erklärenden Variablen zu erklären.
+\item[RICARDIANISCHE ANALYSE] Eine in der Umweltökonomie verwendete Methode, benannt nach David Ricardo, zur Schätzung der wirtschaftlichen Auswirkungen des Klimawandels, besonders auf die Landwirtschaft, durch Nutzung der Hypothese, dass erwartete Änderungen in der Rendite zukünftiger landwirtschaftlicher Aktivität in aktuelle Landwerte kapitalisiert werden.
+\item[SCC] (Social Cost of Carbon) Eine Schätzung der netto wirtschaftlichen Schäden, gemessen in Gegenwartswert-Dollars, verursacht durch die Emission einer zusätzlichen Tonne CO$_2$ in die Atmosphäre.
+\item[SSP-SZENARIEN] (Shared Socioeconomic Pathway) Verschiedene Szenarien für zukünftige Treibhausgasemissionen und ihre Auswirkungen auf die Atmosphäre, eingeführt im Sechsten Bewertungsbericht des IPCC (AR6). Einige der SSP-Szenarien sind analog zu den älteren RCP-Szenarien, zu Zwecken der Kontinuität und des Vergleichs mit früheren Klimamodell-Bewertungen.
+\item[TC] Tropischer Wirbelsturm.
+\item[TMAX] Die tägliche maximale Oberflächenlufttemperatur.
+\item[TMIN] Die tägliche minimale Oberflächenlufttemperatur.
+\item[TOA] Oberseite der Atmosphäre.
+\item[TONNE] Metrische Tonne.
+\item[TOXIKOLOGIE] Das Studium der negativen Auswirkungen chemischer Substanzen auf lebende Organismen.
+\item[TREND] Ein Koeffizient, normalerweise mittels linearer Regression geschätzt, der die Steigung einer Linie bester Anpassung durch eine Zeitreihe von Daten repräsentiert und jede Tendenz für den Serienmittelwert anzeigt, sich über die Zeit nach oben oder unten zu bewegen.
+\item[TSI] (Total Solar Irradiance) Das Maß für die gesamte Menge einfallender Sonnenstrahlung pro Flächeneinheit, einschließlich aller Wellenlängen elektromagnetischer Strahlung, die die Erdatmosphäre erreicht. Typischerweise in Einheiten von Watt pro Quadratmeter (\si{\watt\per\square\meter}) gezeigt.
+\item[UHI] (Urban Heat Island) Die Tendenz bewohnter Gebiete, wärmer zu sein als ihre ländliche Umgebung, aufgrund des Ersatzes natürlichen Landes und der Vegetation durch Straßen, Parkplätze, Gebäude und Abwärmequellen.
+\item[USHCN] Das U.S. Historical Climatology Network, bestehend aus qualitätskontrollierten Temperatur- und Niederschlagsdaten von 1.218 Oberflächenwetterstationen.
+\end{glossar}
 
 \end{document}
