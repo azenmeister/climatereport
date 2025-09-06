@@ -1,4 +1,3 @@
-
 # Deutsche Version 🇩🇪
 
 ## Eine kritische Überprüfung der
@@ -71,3 +70,11 @@ Content deviations or translation errors are possible.
 
 When redistributing this translation, the reference to the original
 document and the license must be retained.
+
+---
+
+## License
+
+- Original DOE report: Public Domain (17 U.S.C. §105)  
+- German translation: © 2025 azenmeister, licensed under [CC BY 4.0](LICENSE)  
+- German summary of the license terms: see [LICENSE_DE.txt](LICENSE_DE.txt)  
